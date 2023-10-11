@@ -1,13 +1,27 @@
 const express = require('express'); //Import the express dependency
-const app = express();              //Instantiate an express app, the main work horse of this server
-const port = 5000;                  //Save the port number where your server will be listening
+const mongoose = require('mongoose');
+const config = require('./config.json');
+const PORT = config['PORT']
+const itemRoutes = require('./routes/item');
 
-//Idiomatic expression in express to route and respond to a client request
-app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    res.sendFile('index.html', {root: __dirname});      //server responds by sending the index.html file to the client's browser
-                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+//Probably need bodyParser ?
+//TODO Add ROUTES!
+
+const app = express();
+mongoose.connect(config['DB_URI'], {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('Connected to MongoDB');
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.get('/try', (req, res) => {
+        res.send('Connected to try');
+    });
+    app.use('/api/item', itemRoutes);
+    app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`)
+    })
 });
 
-app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
-    console.log(`Now listening on port ${port}`); 
-});

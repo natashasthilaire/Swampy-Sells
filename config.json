@@ -1,0 +1,5 @@
+{
+    "PORT": 5003,
+    "DB_URI": "mongodb://localhost:27017/MeetUpLocal"
+    
+}
