@@ -5,6 +5,15 @@
   align-items: center; 
   justify-content: center;
   background-color: whitesmoke;
+  background: linear-gradient(
+    155deg,
+    #ffffff 55%,
+    #0000FF 55%,
+    #0000FF 60%,
+    #FF8C00 60%,
+    #FF8C00 65%, 
+    #ffffff 65%
+  );
 }
 
 .auth-form-container, .login-form, .register-form {
