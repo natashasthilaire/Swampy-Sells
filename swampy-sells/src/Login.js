@@ -4,10 +4,10 @@ export const Login = (props) => {
 const [email, setEmail] = useState(''); 
 const [password, setPassword] = useState(''); 
 
-const submitForm = (e) =>
+const submitForm = (event) =>
 {
     //e.preventDefault is to prevent page from being reloaded
-    e.preventDefault(); 
+    event.preventDefault(); 
 }
     return (
         <div className="auth-form-container">
@@ -15,9 +15,9 @@ const submitForm = (e) =>
             <h2>Welcome!</h2>
             <form className="login-form"onSubmit={submitForm}>
                 <label htmlFor="email">Email </label>
-                <input value = {email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email address" id="email" name="email"/>
+                <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email"/>
                 <label htmlFor="password">Password </label>
-                <input value={password} onChange={(e) => setPassword(e.target.value)}type="password" placeholder="Enter password" id="password" name="password"/>
+                <input value={password} onChange={(event) => setPassword(event.target.value)}type="password" placeholder="Enter password" id="password" name="password"/>
                 <button type="submit">Log In</button>
             </form>
             <button className="link-btn"onClick={() => props.onFormSwitch('register')}> Don't have an account? Sign up</button>
