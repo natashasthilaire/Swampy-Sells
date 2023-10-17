@@ -8,7 +8,6 @@ const submitForm = (e) =>
 {
     //e.preventDefault is to prevent page from being reloaded
     e.preventDefault(); 
-    console.log(email); 
 }
     return (
         <div className="auth-form-container">

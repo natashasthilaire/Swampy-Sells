@@ -11,7 +11,6 @@ export const Register = (props) => {
     const submitForm = (e) => {
         //e.preventDefault is to prevent page from being reloaded
         e.preventDefault();
-        console.log(email);
     }
 
     return (
