@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const config = require('./config.json');
 const PORT = config['PORT']
 const itemRoutes = require('./routes/item');
+const registerRoutes = require('./routes/user');
 
 //Probably need bodyParser ?
 //TODO Add ROUTES!
@@ -20,6 +21,8 @@ mongoose.connect(config['DB_URI'], {
         res.send('Connected to try');
     });
     app.use('/api/item', itemRoutes);
+    app.use('/api', registerRoutes);
+    //Can add more routes here
     app.listen(PORT, () => {
         console.log(`Server listening on port ${PORT}`)
     })
