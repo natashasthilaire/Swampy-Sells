@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const Register = require('../models/Register');
 const nodemailer = require('nodemailer');
 
 exports.registerUser = async (req, res) => {
@@ -8,7 +8,14 @@ exports.registerUser = async (req, res) => {
         console.log(email)
         console.log();
        
-        const verificationCode = 1011;
+        const verificationCode = Math.floor(Math.random() * 1000000);
+        const newRegistration = new Register(
+            {
+                email: email,
+                verification: verificationCode
+            }
+        );
+        await newRegistration.save();
         const transporter = nodemailer.createTransport(
             {
                 service: 'Gmail',
@@ -41,4 +48,20 @@ exports.registerUser = async (req, res) => {
         return res.status(500).send('Error');
     }
     
+}
+
+exports.getRegisteredUser = async(req, res) => {
+    try {
+        const { email, code } = req.query;
+        const bool = await Register.find({email: email, verification: code });
+        if (bool.length) {
+            //may need to send as json? res.status(200).json(true) ?
+            res.status(200).send(true)
+        } else {
+            res.status(400).send(false)
+        }
+    } catch(error) {
+        console.error(error)
+        res.status(500).send(false)
+    }
 }
