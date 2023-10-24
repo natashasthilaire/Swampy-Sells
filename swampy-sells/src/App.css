@@ -16,12 +16,14 @@
   );
 }
 
-.auth-form-container, .login-form, .register-form {
+.auth-form-container, .login-form, .register-form, .verification-container {
   display: flex; 
   flex-direction: column;
 }
 
 .auth-form-container {
+  /* display: flex;
+  flex-direction: column; */
   padding: 5rem;
   border-radius: 10px;
 }
