@@ -12,26 +12,27 @@ export const Register = (props) => {
     const submitForm =  async(event) => {
         console.log('submitform is called')
         event.preventDefault();
-        try{
-            const response = await fetch('http://localhost:5003/api/register', {
-                mode: 'cors',
-                method: 'POST',
-                headers: {
-                      'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email }),
-            });
-            if (response.ok) {
-                alert('Check your inbox for code');
-                setVerificationCode('Input code');
-            } else {
-                alert('Error sending Code')
-                throw Error;
-            }
+        if(validateInput())
+            try{
+                const response = await fetch('http://localhost:5003/api/register', {
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email }),
+                });
+                if (response.ok) {
+                    alert('Check your inbox for code');
+                    setVerificationCode('Input code');
+                } else {
+                    alert('Error sending Code')
+                    throw Error;
+                }
 
-        } catch (error) {
-            console.error(error);
-        }
+            } catch (error) {
+                console.error(error);
+            }
     }
     const handleVerification = async(event) => {
         try {
@@ -42,11 +43,29 @@ export const Register = (props) => {
             else {
                 alert('Not found in db, did not create account');
             }
-        }catch (error) {
+        } catch (error) {
             console.error(error)
         }
     }
+    const validateInput = () => {
+        const domainRegex = new RegExp("^[A-Za-z.]+@ufl\.edu$");
+        const nameRegex = new RegExp("^[A-Za-z]+$");
 
+        if (!firstName || !lastName || !email || !password) {
+            alert("Empty Fields Not Allowed");
+            return false;
+        }
+        if (!nameRegex.test(firstName) || !nameRegex.test(lastName)){
+            alert("Invalid First Name or Last Name Field")
+            return false;
+        }
+        if(!domainRegex.test(email)) {
+            alert('Must Register With Valid UFL Email')
+            return false;
+        }
+
+        return true;
+    };
     return (
         <div className="auth-form-container">
           <img className="register-logo" src="../swampysells-logo.png"/>
@@ -82,6 +101,15 @@ export const Register = (props) => {
                     id="lastName"
                     placeholder="Last name"
                 />
+                <label htmlFor="email">Email</label>
+                <input
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email address"
+                />
                 <label htmlFor="password">Password</label>
                 <input
                     value={password}
@@ -89,15 +117,8 @@ export const Register = (props) => {
                     type="password"
                     name="password"
                     id="password"
+                    placeholder="Password"
                 />
-                <label htmlFor="email">Email</label>
-                <input
-                    value={email}
-                    onChange={(event)=> setEmail(event.target.value)}
-                    name="email"
-                    id="email"
-                    />
-               
            </div>
             )}
             {verificationCode ? (
