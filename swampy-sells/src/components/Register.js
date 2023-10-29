@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -127,9 +127,7 @@ export const Register = (props) => {
               <button type="submit">Create Account</button>
             )}
           </form>
-          <button className="link-btn" onClick={() => props.onFormSwitch('login')}>
-            Already have an account? Log in here.
-          </button>
+          <Link to='/'>Already have an account? Log in here.</Link>
         </div>
       );
 }      

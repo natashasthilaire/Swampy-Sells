@@ -11,3 +11,70 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+nav {
+  top: 0;
+  width: 100%;
+  padding: 16px 32px;
+  margin: 0 auto;
+  font-size: small;
+}
+
+nav a {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.navbar-logo {
+  width: 12%;
+  height: auto; 
+}
+
+.navbar-icons {
+  width: 3%;
+  height: auto; 
+}
+
+nav input {
+  width: 25%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #F5F2F2;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.addPost-form {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #292323;
+  border-radius: 5px;
+  width: 50%;
+  box-shadow: #292323;
+  margin: 0 auto;
+} 
+
+.addPost-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  display: grid;
+}
+
+.addPost-form input,
+.addPost-form textarea {
+  width: 95%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #F5F2F2;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.addPost-form button {
+  background-color: #0C16F2;
+  color: white;
+  padding: 10px 20px;
+  border: 1px black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: medium;
+}

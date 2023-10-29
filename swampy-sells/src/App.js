@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-import { Login } from './Login';
-import { Register } from './Register';
-import React, { useState } from 'react';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from './components/Home';
+import { Post } from './components/Post';
+import { History } from './components/History';
+import { Inbox } from './components/Inbox';
+import { Profile } from './components/Profile';
 
 function App() {
-  const [currForm, setCurrForm] = useState('login');
-
-  const toggleForm = (formName) => {
-    setCurrForm(formName);
-  }
   return (
     <div className="App">
-
-      {
-        currForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
-      }
+      <Routes>
+        <Route path='/' element={<Login />}></Route>
+        <Route path='register' element={<Register />}></Route>
+        <Route path='home' element={<Home />}></Route>
+        <Route path='post' element={<Post />}></Route>
+        <Route path='inbox' element={<Inbox />}></Route>
+        <Route path='history' element={<History />}></Route>
+        <Route path='profile' element={<Profile />}></Route>
+      </Routes>
     </div>
   );
+
 }
 
 export default App;
