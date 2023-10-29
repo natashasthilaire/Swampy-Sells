@@ -1,24 +1,50 @@
 const Register = require('../models/Register');
+const User = require('../models/User');
 const nodemailer = require('nodemailer');
+require('dotenv').config()
 
 exports.registerUser = async (req, res) => {
     try {
-        const email  = req.body.email;
+
+        const {firstName, lastName, email, password} = req.body
         console.log();
-        console.log(email)
+        console.log(firstName, lastName, email, password);
         console.log();
        
-        const verificationCode = Math.floor(Math.random() * 1000000);
-        const newRegistration = new Register(
-            {
-                email: email,
-                verification: verificationCode
-            }
-        );
-        await newRegistration.save();
+        const verificationCode = Math.floor(100000 + Math.random() * 900000);
+        const alreadyRegistered = await Register.findOne({ email: email });
+        if (alreadyRegistered) {
+            alreadyRegistered.verification = verificationCode;
+            await alreadyRegistered.save();
+        } else {
+            const newRegistration = new Register(
+                {
+                    email: email,
+                    verification: verificationCode
+                }
+            );
+            await newRegistration.save();
+            const newUser = new User(
+                {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: process.env.GMAIL_PASSWORD
+                }
+            );
+            await newUser.save();
+        }
+
+        // const newRegistration = new Register(
+        //     {
+        //         email: email,
+        //         verification: verificationCode
+        //     }
+        // );
+        // await newRegistration.save();
         const transporter = nodemailer.createTransport(
             {
-                service: 'Gmail',
+                 service: 'Gmail',
                 auth: {
                     user: 'swampysellsuf@gmail.com',
                     pass: 'bfis kwyb yzmq ferm'
