@@ -1,0 +1,64 @@
+.App {
+  text-align: center;
+  display: flex; 
+  min-height: 100vh;
+  align-items: center; 
+  justify-content: center;
+  background-color: whitesmoke;
+  background: linear-gradient(
+    155deg,
+    #ffffff 55%,
+    #0000FF 55%,
+    #0000FF 60%,
+    #FF8C00 60%,
+    #FF8C00 65%, 
+    #ffffff 65%
+  );
+}
+
+.auth-form-container, .login-form, .register-form, .verification-container {
+  display: flex; 
+  flex-direction: column;
+}
+
+.auth-form-container {
+  /* display: flex;
+  flex-direction: column; */
+  padding: 5rem;
+  border-radius: 10px;
+}
+
+label {
+  text-align: left;
+  padding: 0.25 rcm 0; 
+}
+
+input {
+  margin: 0.5 rem 0; 
+  padding: 1rem; 
+  border: 1px solid gainsboro; 
+  border-radius: 10px;
+  background-color: white;
+  margin: 5px;
+}
+
+button {
+  border: none;
+  background-color: cornflowerblue;
+  padding: 10px; 
+  border-radius: 10px; 
+  cursor: pointer;
+}
+.link-btn {
+  background: none;
+  text-decoration: underline;
+}
+
+img{
+  border-radius: 8px;
+}
+
+.login-logo, .register-logo
+{
+  height: 200px;
+}
