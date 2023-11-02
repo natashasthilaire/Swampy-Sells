@@ -7,6 +7,7 @@ export const Register = (props) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
+    const [showVerification, setShowVerification] = useState(false);
 
 
     const submitForm =  async(event) => {
@@ -20,11 +21,11 @@ export const Register = (props) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email }),
+                    body: JSON.stringify({ firstName, lastName, email, password }),
                 });
                 if (response.ok) {
                     alert('Check your inbox for code');
-                    setVerificationCode('Input code');
+                    setShowVerification(true);
                 } else {
                     alert('Error sending Code')
                     throw Error;
@@ -70,8 +71,8 @@ export const Register = (props) => {
         <div className="auth-form-container">
           <img className="register-logo" src="../swampysells-logo.png"/>
           <h1>{verificationCode ? 'Enter Verification Code' : 'Create Account'}</h1>
-          <form className="register-form" onSubmit={verificationCode ? handleVerification : submitForm}>
-            {verificationCode ? (
+          <form className="register-form" onSubmit={showVerification ? handleVerification : submitForm}>
+            {showVerification ? (
               <div className="verification-container">
                 <label htmlFor="verificationCode">Verification Code</label>
                 <input
