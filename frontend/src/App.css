@@ -56,9 +56,29 @@ button {
 
 img{
   border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.caption {
+  display: block;
+  font:small-caption
+}
+
+.inline-div {
+  display:inline-block;
+  display:flex;
 }
 
 .login-logo, .register-logo
 {
   height: 200px;
+}
+
+.home-logo
+{
+  height: 125px;
+  width:  125px;
 }
