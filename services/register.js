@@ -1,6 +1,7 @@
 const Register = require('../models/Register');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
+const hasher = require('../services/utils/hash');
 require('dotenv').config()
 
 exports.registerUser = async (req, res) => {
@@ -24,30 +25,24 @@ exports.registerUser = async (req, res) => {
                 }
             );
             await newRegistration.save();
+            const hashedPass = await hasher(password);
             const newUser = new User(
                 {
                     firstName: firstName,
                     lastName: lastName,
                     email: email,
-                    password: process.env.GMAIL_PASSWORD
+                    password: hashedPass
                 }
             );
             await newUser.save();
         }
 
-        // const newRegistration = new Register(
-        //     {
-        //         email: email,
-        //         verification: verificationCode
-        //     }
-        // );
-        // await newRegistration.save();
         const transporter = nodemailer.createTransport(
             {
                  service: 'Gmail',
                 auth: {
                     user: 'swampysellsuf@gmail.com',
-                    pass: 'bfis kwyb yzmq ferm'
+                    pass: process.env.GMAIL_PASSWORD
                 }
 
             }
