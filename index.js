@@ -12,7 +12,7 @@ const registerRoutes = require('./routes/register');
 //TODO Add ROUTES!
 
 const app = express();
-mongoose.connect(config['DB_URI'], {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
