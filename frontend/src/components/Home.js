@@ -1,8 +1,32 @@
-import { NavBar } from "./NavBar";
+import React from 'react';
+import NavbarComp from '../components/NavbarComp';
+//import '../App.css'
 
-export const Home = () => {
-    return <div>
-        <NavBar />
-        <h2>Home Page</h2>
+const Home = () => {
+
+  return (
+    <>
+    <div style={{display:"flex", flexDirection:"row"}} >
+      <img class="home-logo" src="../swampysells-logo.png"></img>
+      <div class="inline-div">
+      <NavbarComp></NavbarComp>
+        <div class="item">
+          <img src="../destination.png"></img>
+          <span class="caption">Riker Hall</span>
+        </div>
+        
+      </div>
     </div>
-}
+    <div style={{whiteSpace:"pre-wrap", display:"flex", flexDirection:"row", justifyContent:"space-evenly" }}> 
+      <p><b><a href='/textbooks' style={{color:"black"}}>Textbooks{" "}</a></b></p>
+      <p><b><a href='/clothes' style={{color:"black"}}>Clothes{" "}</a></b></p>
+      <p><b><a href='/decor' style={{color:"black"}}>General Decor{" "}</a></b></p>
+      <p><b><a href='/furniture' style={{color:"black"}}>Furniture{" "}</a></b></p>
+      <p><b><a href='/appliances' style={{color:"black"}}>Appliances{" "}</a></b></p>
+      <p><b><a href='/tickets' style={{color:"black"}}>Tickets{" "}</a></b></p>
+    </div>
+    </>
+  );
+};
+
+export default Home;

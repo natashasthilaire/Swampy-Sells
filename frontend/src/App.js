@@ -1,28 +1,34 @@
+import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import {
+  BrowserRouter, Routes, Route
+} from 'react-router-dom';
+
 import { Login } from './components/Login';
 import { Register } from './components/Register';
-import { Routes, Route } from 'react-router-dom';
-import { Home } from './components/Home';
-import { Post } from './components/Post';
-import { History } from './components/History';
-import { Inbox } from './components/Inbox';
-import { Profile } from './components/Profile';
+import Home from './components/Home';
+import { useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path='/' element={<Login />}></Route>
-        <Route path='register' element={<Register />}></Route>
-        <Route path='home' element={<Home />}></Route>
-        <Route path='post' element={<Post />}></Route>
-        <Route path='inbox' element={<Inbox />}></Route>
-        <Route path='history' element={<History />}></Route>
-        <Route path='profile' element={<Profile />}></Route>
-      </Routes>
-    </div>
-  );
+  const [currForm, setCurrForm] = useState('login');
 
+  const toggleForm = (formName) => {
+    setCurrForm(formName);
+  }
+  return (
+    <>
+    <Routes>
+      <Route path="/" element= {<Home/> }/>
+    </Routes>
+     <div className="App">
+      <Routes>
+        <Route path='/login' element={<Login/>} />
+        <Route path='/register' element={<Register/>} />
+      </Routes>
+     </div>
+    </>
+  );
 }
 
 export default App;
