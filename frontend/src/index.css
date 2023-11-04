@@ -7,13 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a:link { 
-  text-decoration: none!important;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+a:link { 
+  text-decoration: none!important;
 }
 
 nav {
@@ -29,6 +30,7 @@ nav a {
   margin-left: 10px;
 }
 
+
 .navbar-logo {
   width: 12%;
   height: auto; 
@@ -39,14 +41,7 @@ nav a {
   height: auto; 
 }
 
-nav input {
-  width: 25%;
-  padding: 5px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  background-color: #F5F2F2;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+
 
 .addPost-form {
   background-color: white;

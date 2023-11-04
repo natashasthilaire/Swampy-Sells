@@ -1,8 +1,9 @@
+import Header from "./Header";
 import { NavBar } from "./NavBar";
 
 export const Inbox = () => {
     return <div>
-        <NavBar />
+        <Header />
         <h2>Messaging Page</h2>
     </div>
 }

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  display: flex; 
+  display:flex;
   min-height: 100vh;
   align-items: center; 
   justify-content: center;
@@ -74,7 +74,9 @@ img {
 
 .caption {
   display: block;
-  font:small-caption
+  color:black;
+  font:small-caption;
+  width: 100px;
 }
 
 .inline-div {

@@ -12,7 +12,7 @@ export default class NavbarComp extends Component {
       <Navbar expand="lg" className="body-tertiary" style={{borderRadius:"50%"}}>
       <Container fluid>
           <Form className="d-flex">
-            <Form.Control /*style={{width:"250px"}}*/ style={{width:"400px"}}
+            <Form.Control style={{width:"400px"}}
               type="search"
               placeholder="Search"
               className="me-2"
