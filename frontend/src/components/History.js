@@ -1,4 +1,5 @@
 import { NavBar } from "./NavBar";
+import NavbarComp from "./NavbarComp";
 
 export const History = () => {
     return <div>

@@ -20,7 +20,7 @@ const submitForm = (event) =>
                 <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email"/>
                 <label htmlFor="password">Password </label>
                 <input value={password} onChange={(event) => setPassword(event.target.value)}type="password" placeholder="Enter password" id="password" name="password"/>
-                <button type="submit">Log In</button>
+                <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Log In</button>
             </form>
         <Link to='/register'>Don't have an account? Sign up</Link>
         </div>

@@ -122,9 +122,9 @@ export const Register = (props) => {
            </div>
             )}
             {verificationCode ? (
-              <button type="submit">Verify Account</button>
+              <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Verify Account</button>
             ) : (
-              <button type="submit">Create Account</button>
+              <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Create Account</button>
             )}
           </form>
           <Link to='/'>Already have an account? Log in here.</Link>

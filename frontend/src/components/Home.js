@@ -3,15 +3,14 @@ import NavbarComp from '../components/NavbarComp';
 //import '../App.css'
 
 const Home = () => {
-
   return (
     <>
     <div style={{display:"flex", flexDirection:"row"}} >
       <img class="home-logo" src="../swampysells-logo.png"></img>
       <div class="inline-div">
-      <NavbarComp></NavbarComp>
+      <NavbarComp />
         <div class="item">
-          <img src="../destination.png"></img>
+          <img src="../destination.png" style={{width:"15px", height:"20px"}}></img>
           <span class="caption">Riker Hall</span>
         </div>
         
