@@ -14,7 +14,6 @@ const Header = () => {
             <img src="../destination.png" style={{width:"15px", height:"20px", marginTop:"45px"}}></img>
             <span class="caption">Riker Hall</span>
           </div>
-
           <div class="inline-div" style={{marginTop:"40px", marginLeft: "240px"}}>
               <div style={{justifyContent:"center", textAlign:"center"}}>
                 <img className="navbar-icons" src="../add_post.png" style={{width:"30px"}}></img>
@@ -26,7 +25,7 @@ const Header = () => {
               </div>
 
               <div style={{justifyContent:"center", textAlign:"center"}}>
-                <img className="navbar-icons" src="../history.png" style={{width:"30px"}}></img>
+                <img className="navbar-icons" src="../history.png" style={{width:"28px"}}></img>
                 <a href='/history'><span class="caption">History</span></a>
               </div>
 
@@ -35,7 +34,6 @@ const Header = () => {
                 <a href='/profile'><span class="caption">Profile</span></a>
               </div>    
           </div>         
-
       </div>
     </div>
     <div style={{whiteSpace:"pre-wrap", display:"flex", flexDirection:"row", justifyContent:"space-evenly" }}> 

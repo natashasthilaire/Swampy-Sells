@@ -38,7 +38,7 @@ export const Post = (props) => {
                     Description
                 </textarea>
                 <p></p>
-                <button type="submit">Post</button>
+                <button type="submit" style={{borderRadius:"10px"}}>Post</button>
             </form>
         </div>
     )

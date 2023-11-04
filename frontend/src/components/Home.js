@@ -1,5 +1,4 @@
 import React from 'react';
-import NavbarComp from '../components/NavbarComp';
 import Header from './Header';
 import '../App.css'
 

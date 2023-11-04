@@ -11,11 +11,9 @@ import { Profile } from './components/Profile';
 function App() {
   return (
     <>
-    <Routes>
-       <Route path='home' element={<Home />}></Route>
-    </Routes>
     <div className="App">
       <Routes>
+      <Route path='home' element={<Home />}></Route>
         <Route path='/' element={<Login />}></Route>
         <Route path='register' element={<Register />}></Route>
         <Route path='post' element={<Post />}></Route>

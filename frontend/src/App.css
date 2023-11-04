@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  display:flex;
   min-height: 100vh;
   align-items: center; 
   justify-content: center;
@@ -92,6 +91,6 @@ img {
 
 .home-logo
 {
-  height: 125px;
-  width:  125px;
+  height: 130px;
+  width:  140px;
 }
