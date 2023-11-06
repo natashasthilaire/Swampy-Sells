@@ -1,8 +1,12 @@
-import { NavBar } from "./NavBar";
+import React, {useState} from "react";
+import Header from "./Header";
+import '../App.css'
 
-export const History = () => {
-    return <div>
-        <NavBar />
-       <h2>History Page</h2> 
-    </div>
+export const History = (props) => {
+    
+    return (
+        <div>
+          <Header /> 
+        </div>
+    )
 }

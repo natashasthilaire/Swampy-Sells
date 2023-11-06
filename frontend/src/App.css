@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  display: flex; 
   min-height: 100vh;
   align-items: center; 
   justify-content: center;
@@ -22,10 +21,10 @@
 }
 
 .auth-form-container {
-  /* display: flex;
-  flex-direction: column; */
-  padding: 5rem;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column; 
+  /*padding: 5rem;
+  border-radius: 10px;*/
 }
 
 label {
@@ -49,16 +48,49 @@ button {
   border-radius: 10px; 
   cursor: pointer;
 }
+
 .link-btn {
   background: none;
   text-decoration: underline;
 }
 
-img{
+div.item {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  object-position:  0 0;
+  width: 120px;
+  margin-left: -20px;
+}
+
+img {
   border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.caption {
+  display: block;
+  color:black;
+  font:small-caption;
+  width: 100px;
+}
+
+.inline-div {
+  display: inline-block;
+  display: flex;
 }
 
 .login-logo, .register-logo
 {
   height: 200px;
+  width:  250px;
+}
+
+.home-logo
+{
+  height: 130px;
+  width:  140px;
 }

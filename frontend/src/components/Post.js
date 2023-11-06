@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Header from "./Header";
 import { NavBar } from "./NavBar";
 
 export const Post = (props) => {
@@ -20,7 +21,7 @@ export const Post = (props) => {
 
     return (
         <div>
-             <NavBar/ >
+             <Header />
             <h2>Post an Item</h2>
             <form className="addPost-form">
                 <label>Upload Images of Item:</label>
@@ -37,7 +38,7 @@ export const Post = (props) => {
                     Description
                 </textarea>
                 <p></p>
-                <button type="submit">Post</button>
+                <button type="submit" style={{borderRadius:"10px"}}>Post</button>
             </form>
         </div>
     )

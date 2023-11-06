@@ -1,8 +1,13 @@
-import { NavBar } from "./NavBar";
+import React from 'react';
+import Header from './Header';
+import '../App.css'
 
-export const Home = () => {
-    return <div>
-        <NavBar />
-        <h2>Home Page</h2>
+const Home = () => {
+  return (
+    <div >
+    <Header />
     </div>
-}
+  );
+};
+
+export default Home;
