@@ -9,7 +9,14 @@ export const Forgot = (props) => {
     const [verificationCode, setVerificationCode] = useState('');
     const [showVerification, setShowVerification] = useState(false);
 
+    function redirect() {
+        const handleClick = (e) => {
+            e.preventDefault();
+            console.log('The link was clicked.');
+        }
+        return <Link to='/reset'></Link>
 
+    }
     const submitForm =  async(event) => {
         console.log('submitform is called')
         event.preventDefault();
@@ -90,7 +97,7 @@ export const Forgot = (props) => {
            </div>
             )}
             {verificationCode ? (
-              <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Verify Account</button>
+              <button /*type="submit"*/ onClick={redirect} style={{borderRadius:"10px", marginTop:"10px"}}>Verify Account</button>
             ) : (
               <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Send Verification Code</button>
             )}
