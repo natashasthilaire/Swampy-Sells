@@ -21,10 +21,9 @@
 }
 
 .auth-form-container {
-  display: flex;
-  flex-direction: column; 
-  /*padding: 5rem;
-  border-radius: 10px;*/
+  padding: 5rem;
+  border-radius: 10px;
+  align-items: center;
 }
 
 label {
@@ -86,11 +85,12 @@ img {
 .login-logo, .register-logo
 {
   height: 200px;
-  width:  250px;
+  width: 250px;
+  align-self: center;
 }
 
 .home-logo
 {
   height: 130px;
-  width:  140px;
+  width: 140px;
 }

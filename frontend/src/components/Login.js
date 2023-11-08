@@ -1,3 +1,4 @@
+import '../App.css'
 import React, {useState} from "react"; 
 import { Link } from "react-router-dom";
 //props is a way for parent values to send values to children
@@ -13,7 +14,7 @@ const submitForm = (event) =>
 }
     return (
         <div className="auth-form-container">
-            <img className="login-logo"src="../swampysells-logo.png"></img>
+            <img className="login-logo" src="../swampysells-logo.png" style={{justifyContent:"center"}}></img>
             <h2>Welcome!</h2>
             <form className="login-form"onSubmit={submitForm}>
                 <label htmlFor="email">Email </label>

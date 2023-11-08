@@ -67,6 +67,7 @@ export const Register = (props) => {
 
         return true;
     };
+    
     return (
         <div className="auth-form-container">
           <img className="register-logo" src="../swampysells-logo.png"/>
