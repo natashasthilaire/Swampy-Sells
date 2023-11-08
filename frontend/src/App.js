@@ -3,6 +3,7 @@ import React from 'react';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
 import { Routes, Route } from 'react-router-dom';
+import { Forgot } from './components/Forgot';
 import  Home  from './components/Home';
 import { Post } from './components/Post';
 import { History } from './components/History';
@@ -21,6 +22,7 @@ function App() {
         <Route path='inbox' element={<Inbox />}></Route>
         <Route path='history' element={<History />}></Route>
         <Route path='profile' element={<Profile />}></Route>
+        <Route path='forgot' element={<Forgot />}></Route>
       </Routes>
     </div>
     </>

@@ -12,9 +12,8 @@ code {
     monospace;
 }
 
-
 a:link { 
-  text-decoration: none!important;
+  text-decoration: none;
 }
 
 nav {
@@ -30,7 +29,6 @@ nav a {
   margin-left: 10px;
 }
 
-
 .navbar-logo {
   width: 12%;
   height: auto; 
@@ -40,8 +38,6 @@ nav a {
   width: 3%;
   height: auto; 
 }
-
-
 
 .addPost-form {
   background-color: white;

@@ -24,6 +24,7 @@ const submitForm = (event) =>
                 <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Log In</button>
             </form>
         <Link to='/register'>Don't have an account? Sign up</Link>
+        <Link to='/forgot' style={{textDecorationLine:"underline"}}>Forgot your password?</Link>
         </div>
     )
 }
