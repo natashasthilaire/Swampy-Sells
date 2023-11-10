@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 export const Forgot = (props) => {
     const [email, setEmail] = useState('');
@@ -9,14 +10,6 @@ export const Forgot = (props) => {
     const [verificationCode, setVerificationCode] = useState('');
     const [showVerification, setShowVerification] = useState(false);
 
-    function redirect() {
-        const handleClick = (e) => {
-            e.preventDefault();
-            console.log('The link was clicked.');
-        }
-        return <Link to='/reset'></Link>
-
-    }
     const submitForm =  async(event) => {
         console.log('submitform is called')
         event.preventDefault();
@@ -45,11 +38,12 @@ export const Forgot = (props) => {
     const handleVerification = async(event) => {
         try {
             const response = await fetch(`http://localhost:5003/api/register?email=${email}&code=${verificationCode}`);
-            if (response.status ===200) {
-                alert('Found in db. created account')
+            if (response.status === 200) {
+
+                alert('Found in db. created new password')
             }
             else {
-                alert('Not found in db, did not create account');
+                alert('Not found in db, did not create new password');
             }
         } catch (error) {
             console.error(error)
@@ -97,7 +91,7 @@ export const Forgot = (props) => {
            </div>
             )}
             {verificationCode ? (
-              <button /*type="submit"*/ onClick={redirect} style={{borderRadius:"10px", marginTop:"10px"}}>Verify Account</button>
+               <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Verify Account</button>
             ) : (
               <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Send Verification Code</button>
             )}

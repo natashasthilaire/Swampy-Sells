@@ -86,3 +86,12 @@ exports.getRegisteredUser = async(req, res) => {
         res.status(500).send(false)
     }
 }
+app.post('/forgot', (req, res) => {
+    const {email} = req.body;
+    User.findOne({email: email})
+    .then(user => {
+        if (!user) {
+            return res.send({Status: "User does not exist"})
+        }
+    }) 
+})
