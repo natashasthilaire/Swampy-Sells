@@ -41,6 +41,7 @@ export default function Reset() {
                   //value={verificationCode}
                   type="text"
                   placeholder="Enter verification code"
+                  onChange={(event) => setPassword(event.target.value)}
                   //id="verificationCode"
                   //name="verificationCode"
                 />

@@ -51,7 +51,8 @@ mongoose.connect(process.env.MONGODB_URL, {
         const {email, password} = req.body;
         User.findOne({email: email}).then(async user => {
             if (user) {
-                if (bcrypt.compare(password,user.password)) {
+                const passwordsMatch = await bcrypt.compare(password, user.password)
+                if (passwordsMatch) {
                     res.json("Success");
                 } else {
                     res.json("Incorrect password");
@@ -102,6 +103,7 @@ mongoose.connect(process.env.MONGODB_URL, {
     app.post('/reset/:id/:token', (req, res) => {
         const {id, token} = req.params
         const {password} = req.body
+        console.log('New Password', password)
     
         jwt.verify(token, "jwt_secret_key", (err, decoded) => {
             if(err) {
