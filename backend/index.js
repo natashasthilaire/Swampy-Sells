@@ -2,6 +2,7 @@ const express = require('express'); //Import the express dependency
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+const hasher = require('./services/utils/hash');
 const jwt = require('jsonwebtoken')
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -49,7 +50,9 @@ mongoose.connect(process.env.MONGODB_URL, {
         const {email, password} = req.body;
         User.findOne({email: email}).then(user => {
             if (user) {
-                if (user.password === password) {
+                console.log('this is password: ', password);    
+                const hashedPass = hasher(password);
+                if (user.password === hashedPass) {
                     res.json("Success");
                 } else {
                     res.json("Incorrect password");
