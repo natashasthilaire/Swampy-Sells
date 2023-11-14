@@ -12,6 +12,7 @@ const itemRoutes = require('./routes/item');
 const registerRoutes = require('./routes/register');
 const User = require('./models/User');
 const { registerUser } = require('./services/register');
+const hashed = require('./services/utils/hash');
 
 
 //Probably need bodyParser ?
@@ -50,12 +51,7 @@ mongoose.connect(process.env.MONGODB_URL, {
         const {email, password} = req.body;
         User.findOne({email: email}).then(async user => {
             if (user) {
-                console.log('this is password: ', password);   // what's being typed in
-                console.log('this is user.password: ', user.password); //in the database
-                const hashedPass = await hasher(password);
-                console.log('this is hashed pass: ', hashedPass);
-                //bcrypt.hash(password, 10)
-                if (password === user.password) {
+                if (bcrypt.compare(password,user.password)) {
                     res.json("Success");
                 } else {
                     res.json("Incorrect password");
