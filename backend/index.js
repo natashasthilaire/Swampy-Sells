@@ -48,11 +48,14 @@ mongoose.connect(process.env.MONGODB_URL, {
     
     app.post("/login", (req, res) => {
         const {email, password} = req.body;
-        User.findOne({email: email}).then(user => {
+        User.findOne({email: email}).then(async user => {
             if (user) {
-                console.log('this is password: ', password);    
-                const hashedPass = hasher(password);
-                if (user.password === hashedPass) {
+                console.log('this is password: ', password);   // what's being typed in
+                console.log('this is user.password: ', user.password); //in the database
+                const hashedPass = await hasher(password);
+                console.log('this is hashed pass: ', hashedPass);
+                //bcrypt.hash(password, 10)
+                if (password === user.password) {
                     res.json("Success");
                 } else {
                     res.json("Incorrect password");
@@ -108,7 +111,7 @@ mongoose.connect(process.env.MONGODB_URL, {
             if(err) {
                 return res.json({Status: "Error with token"})
             } else {
-                bcrypt.hash(password, 10)
+                bcrypt.hash(password, 12)
                 .then(hash => {
                     User.findByIdAndUpdate({_id: id}, {password: hash})
                     .then(u => res.send({Status: "Success"}))
