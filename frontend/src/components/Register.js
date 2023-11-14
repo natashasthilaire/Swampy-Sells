@@ -50,7 +50,7 @@ export const Register = (props) => {
     }
     const validateInput = () => {
         const domainRegex = new RegExp("^[A-Za-z.]+@ufl\.edu$");
-        const nameRegex = new RegExp("^[A-Za-z]+$");
+        const nameRegex = new RegExp("^[A-Za-z ]+$");
 
         if (!firstName || !lastName || !email || !password) {
             alert("Empty Fields Not Allowed");

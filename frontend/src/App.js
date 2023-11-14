@@ -24,7 +24,7 @@ function App() {
         <Route path='history' element={<History />}></Route>
         <Route path='profile' element={<Profile />}></Route>
         <Route path='forgot' element={<Forgot />}></Route>
-        <Route path='reset' element={<Reset />}></Route>
+        <Route path='/reset/:id/:token' element={<Reset />}></Route>
       </Routes>
     </div>
     </>
