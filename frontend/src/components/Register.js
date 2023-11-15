@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import TypeAheadDropDown from "./TypeAheadDropDown";
+import dorms from "../locations";
 import { Link } from "react-router-dom";
 
 export const Register = (props) => {
@@ -6,12 +8,15 @@ export const Register = (props) => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [location, setLocation] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [showVerification, setShowVerification] = useState(false);
 
+    //const  dorms = ['Beaty Towers','Broward Hall','Buckman Hall','Corry Village','Cypress Hall','Diamond Village','East Hall','Fletcher Hall','Graham Hall','Honors Village','Hume Hall','Infinity Hall','Keys Complex','Lakeside Complex','Mallory Hall','Murphree Hall','North Hall','Off-campus','Rawlings Hall','Reid Hall','Riker Hall','Simpson Hall','Sledd Hall','Springs Complex','Tanglewood Village','The Continuum','Thomas Hall','Tolbert Hall','Trusler Hall','Weaver Hall','Yulee Hall',];
 
     const submitForm =  async(event) => {
         console.log('submitform is called')
+        console.log(location);
         event.preventDefault();
         if(validateInput())
             try{
@@ -121,6 +126,9 @@ export const Register = (props) => {
                     id="password"
                     placeholder="Password"
                 />
+                <label htmlFor="location">Location</label>
+                <TypeAheadDropDown iteams={dorms} onChange={(event)=> setLocation(event.target.value)} />
+                
            </div>
             )}
             {verificationCode ? (
