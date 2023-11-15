@@ -11,6 +11,7 @@ export const Forgot = (props) => {
     const navigate = useNavigate();
 
     axios.defaults.withCredentials = true;
+
     const submitForm = (event) =>
     {
         //e.preventDefault is to prevent page from being reloaded
@@ -30,13 +31,13 @@ export const Forgot = (props) => {
             <div className="auth-form-container">
                 <img className="login-logo" src="../swampysells-logo.png" style={{justifyContent:"center"}}></img>
                 <h2>Forgot Password</h2>
+                <p>Enter your email and we'll send you<br></br> a link to reset your password</p>     
                 <form className="login-form" onSubmit={submitForm}>
                     <label htmlFor="email">Email </label>
                     <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email"/>
-                    <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Send Verification Code</button>
+                    <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Send Link</button>
                 </form>
-            <Link to='/register' style={{color:"black"}}>Don't have an account? Sign up</Link>
-            <Link to='/' style={{color:"black"}}>Already have an account? Login here</Link>
+            <Link to='/' style={{marginTop:"10px"}}>Already have an account? Login here</Link>
             </div>
     )
 }

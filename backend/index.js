@@ -2,7 +2,6 @@ const express = require('express'); //Import the express dependency
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const hasher = require('./services/utils/hash');
 const jwt = require('jsonwebtoken')
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -11,8 +10,6 @@ const PORT = config['PORT']
 const itemRoutes = require('./routes/item');
 const registerRoutes = require('./routes/register');
 const User = require('./models/User');
-const { registerUser } = require('./services/register');
-const hashed = require('./services/utils/hash');
 
 
 //Probably need bodyParser ?
@@ -32,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URL, {
     //const cors = require('cors');
     const corsOptions ={
         origin:'http://localhost:3000', 
-        credentials:true,            //access-control-allow-credentials:true
+        credentials:true,            
         optionSuccessStatus:200
     }
     app.use(cors(corsOptions));

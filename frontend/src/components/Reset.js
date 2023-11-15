@@ -1,54 +1,58 @@
+import '../App.css';
 import React, {useState} from 'react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
-//old password $2b$12$h/xjJjdLh8xFlSHwvfHZxOAkmYWpaloKYAt/Nxy1I8Jw03D/6VOXC
-export default function Reset() {
+export const Reset = (props) => {
   
   const [password, setPassword] = useState(''); 
   const navigate = useNavigate();
   const {id, token} = useParams();
 
   axios.defaults.withCredentials = true;
+
+  function validateInput(input) {
+    const passwordRegex = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
+
+    if(!passwordRegex.test(input)) {
+        return false;
+    }
+
+    return true;
+  }
   const handleSubmit = (e) => {
+
     e.preventDefault()
-    axios.post(`http://localhost:3001/reset/${id}/${token}`, {password})
-    .then(res => {
-    if(res.data.Status === "Success") {
-      navigate('/')
-                  
-      }
-    }).catch(err => console.log(err))
+      if (validateInput(password)) {
+      axios.post(`http://localhost:3001/reset/${id}/${token}`, {password})
+      .then(res => {
+      if(res.data.Status === "Success") {
+        navigate('/')     
+        }
+      }).catch(err => console.log(err))
+    } else {
+      alert('Password must be at least 8 characters and contain one number, one uppercase, and one lowercase letter')
+    }
   }    
   return (
-    <div className="auth-form-container">
-          <img className="register-logo" src="../swampysells-logo.png"/>
-          <h1>Reset Your Password</h1>
 
+    <div className="auth-form-container">
+          <img src='swampysells-logo.png'></img>
+          <h1>Reset Your Password</h1>
           <form onSubmit={handleSubmit} className="register-form">
               <div className="verification-container">
-                <label>Old Password</label>
+                <label htmlFor='email'>New Password</label>
                 <input
-                  //value={verificationCode}
                   type="text"
-                  placeholder="Enter verification code"
-                  //id="verificationCode"
-                  //name="verificationCode"
-                />
-                <label>New Password</label>
-                <input
-                  //value={verificationCode}
-                  type="text"
-                  placeholder="Enter verification code"
+                  placeholder="Enter your new password"
+                  name="password"
                   onChange={(event) => setPassword(event.target.value)}
-                  //id="verificationCode"
-                  //name="verificationCode"
                 />
               </div>
-              <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Create Account</button>
+              <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Change Password</button>
           </form>
-          <Link to='/' style={{color:"black"}}>Already have an account? Log in here.</Link>
+          <Link to='/'>Already have an account? Log in here.</Link>
         </div>
   )
 }
