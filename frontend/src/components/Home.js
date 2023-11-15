@@ -22,7 +22,7 @@ const Home = () => {
     <Header />
     <div className='items'>
       {items && items.map((item) => {
-        <p key={item._id}></p>
+        <p key={item._id}>{item.title}</p>
       })}
     </div>
     </div>

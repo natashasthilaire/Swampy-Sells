@@ -128,9 +128,11 @@ mongoose.connect(process.env.MONGODB_URL, {
    ]
     ) 
     */
-    app.post('/items', (req, res) => {
+
+   app.get("/home", (req, res) => {
         
-        Item.create("Textbook", "a", "b", "c");
-    })
+
+   })
+
 });
 
