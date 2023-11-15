@@ -7,9 +7,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 const PORT = config['PORT']
+const Item = require('./models/Item');
 const itemRoutes = require('./routes/item');
 const registerRoutes = require('./routes/register');
 const User = require('./models/User');
+const { MongoDBCollectionNamespace, Db } = require('mongodb');
 
 
 //Probably need bodyParser ?
@@ -115,6 +117,20 @@ mongoose.connect(process.env.MONGODB_URL, {
                 .catch(err => res.send({Status: err}))
             }
         })
+    })
+
+    /*
+    db.products.insert(
+   [
+     { _id: 11, item: "pencil", qty: 50, type: "no.2" },
+     { item: "pen", qty: 20 },
+     { item: "eraser", qty: 25 }
+   ]
+    ) 
+    */
+    app.post('/items', (req, res) => {
+        
+        Item.create("Textbook", "a", "b", "c");
     })
 });
 
