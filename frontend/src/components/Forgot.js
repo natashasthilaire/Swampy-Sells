@@ -16,7 +16,7 @@ export const Forgot = (props) => {
     {
         //e.preventDefault is to prevent page from being reloaded
         event.preventDefault(); 
-        axios.post('http://localhost:3001/forgot', {email}).then(res => {
+        axios.post('http://localhost:5003/forgot', {email}).then(res => {
             
             console.log("in submit form");
             if (res.data.Status === "Success") {

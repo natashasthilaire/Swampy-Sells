@@ -25,7 +25,7 @@ export const Reset = (props) => {
 
     e.preventDefault()
       if (validateInput(password)) {
-      axios.post(`http://localhost:3001/reset/${id}/${token}`, {password})
+      axios.post(`http://localhost:5003/reset/${id}/${token}`, {password})
       .then(res => {
       if(res.data.Status === "Success") {
         navigate('/')     
