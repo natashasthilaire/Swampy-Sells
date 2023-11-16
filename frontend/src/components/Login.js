@@ -14,7 +14,8 @@ const submitForm = (event) =>
 {
     //e.preventDefault is to prevent page from being reloaded
     event.preventDefault(); 
-    axios.post('http://localhost:3001/login', {email, password}).then(result => {
+    //3001 works
+    axios.post('http://localhost:5003/login', {email, password}).then(result => {
         console.log(result);
         if (result.data === "Success") {
             navigate('/home')

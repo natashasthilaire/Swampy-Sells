@@ -16,7 +16,6 @@ export const Register = (props) => {
 
     const submitForm =  async(event) => {
         console.log('submitform is called')
-        console.log(location);
         event.preventDefault();
         if(validateInput())
             try{
@@ -128,7 +127,6 @@ export const Register = (props) => {
                 />
                 <label htmlFor="location">Location</label>
                 <TypeAheadDropDown iteams={dorms} onChange={(event)=> setLocation(event.target.value)} />
-                
            </div>
             )}
             {verificationCode ? (
