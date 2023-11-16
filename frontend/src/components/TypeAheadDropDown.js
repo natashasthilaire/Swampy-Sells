@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import '../TypeAheadDropDown.css'
 
 export default class TypeAheadDropDown extends React.Component {
@@ -12,9 +12,13 @@ export default class TypeAheadDropDown extends React.Component {
     }
 
     onTextChange = (e) => {
-        const {iteams} = this.props;
+        const {iteams, onChange} = this.props;
         let suggestions = [];
         const value = e.target.value;
+        if (typeof onChange === "function") {
+          onChange(e); // This allows you to call the function you made to update location.
+        }
+            
         if (value.length > 0) {
           const regex = new RegExp(`^${value}`, `i`);
           suggestions = iteams.sort().filter(v => regex.test(v));
@@ -27,10 +31,14 @@ export default class TypeAheadDropDown extends React.Component {
     }
 
     suggestionSelected=(value)=>{
+      const {onChange} = this.props;
         this.setState(()=>({
           text:value,
           suggestions:[]
         }))
+        if (typeof onChange === "function") {
+          onChange({target: {value : value}});
+        }
     }
 
     renderSuggestions = () => {
@@ -49,7 +57,7 @@ export default class TypeAheadDropDown extends React.Component {
     render() {
         const {text}=this.state
         return (
-        <div className="TypeAheadDropDown">
+        <div className="TypeAheadDropDown" style={{overflowY: "scroll", maxHeight: "80px"}}>
           <input onChange={this.onTextChange} placeholder="Search dorm name" value={text} type="text" />
           {this.renderSuggestions()}
         </div>

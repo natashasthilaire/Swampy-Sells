@@ -22,7 +22,6 @@ export const Forgot = (props) => {
             if (res.data.Status === "Success") {
                 console.log(email);
                 navigate('/login')
-    
             } 
         }).catch(err => console.log(err))
         //console.log(email);
