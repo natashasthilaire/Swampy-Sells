@@ -10,15 +10,36 @@ export const Post = (props) => {
     const [category, setCategory] = useState('');
     const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
-    
-    const submitPost = async (event) => {
-        console.log('submitPost called')
-        event.preventDefault();
-    }
 
     const handleImageChange = async (event) => {
-        const file = event.target.files[0];
-        setImage(file);
+        setImage(event.target.files[0])
+    }
+
+    const submitPost = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('condition', condition);
+        formData.append('description', description);
+    
+        try {
+            const response = await fetch('http://localhost:5003/api/listing', {
+              method: 'POST',
+              body: formData,
+            });
+            if (response.ok) {
+                    alert('Post Submitted');
+            } else {
+                    alert('Error creating post')
+                    throw Error;
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
     }
 
     return (
@@ -28,7 +49,7 @@ export const Post = (props) => {
                 <h2>Post a Listing</h2>
                 <Form.Group controlId="formFile" className="mb-2" src="../image,png">
                     <Form.Label>Add Photo</Form.Label>
-                    <Form.Control type="file" onChange={(event) => handleImageChange(event)} accept="image/*" required/>
+                    <Form.Control type="file" name="file" onChange={(event) => handleImageChange(event)} accept="image/*" required/>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
