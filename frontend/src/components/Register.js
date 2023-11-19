@@ -12,12 +12,7 @@ export const Register = (props) => {
     const [verificationCode, setVerificationCode] = useState('');
     const [showVerification, setShowVerification] = useState(false);
 
-    const  dormitories = ['Beaty Towers','Broward Hall','Buckman Hall','Corry Village','Cypress Hall','Diamond Village','East Hall','Fletcher Hall','Graham Hall','Honors Village','Hume Hall','Infinity Hall','Keys Complex','Lakeside Complex','Mallory Hall','Murphree Hall','North Hall','Off-campus','Rawlings Hall','Reid Hall','Riker Hall','Simpson Hall','Sledd Hall','Springs Complex','Tanglewood Village','The Continuum','Thomas Hall','Tolbert Hall','Trusler Hall','Weaver Hall','Yulee Hall',];
-
     const submitForm =  async(event) => {
-        console.log('location: ', location)
-        console.log('firstname', firstName);
-        console.log('submitform is called');
         event.preventDefault();
         if(validateInput())
             try{

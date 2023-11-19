@@ -1,9 +1,51 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import NavbarComp from '../components/NavbarComp';
+import TypeAheadDropDown from './TypeAheadDropDown';
+import locations from '../locations';
+import dorms from "../locations";
 import '../App.css'
+var location = 'hey';
 
 const Header = () => {
+  const [email, setEmail] = useState(''); 
+  const [location, setLocation] = useState('');
+  /*useEffect(() => {
+    const fetchLocation = async () => {
+      const response = await fetch('http://localhost:5003/location');
+      const json = await response.json()
+
+      if (response.ok) {
+        setLocation(json);
+        console.log('inside of header: ',location)
+      }
+    }
+
+    fetchLocation();
+  }, [])
+  */
+  /*useEffect(() => {
+    axios
+      .get("http://localhost:5003/location")
+      .then((res) => setLocation(res.data))
+      .catch(err => {
+       console.error(err);
+  });
+  }, []);
+  */
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5003/location")
+      .then((res) => setLocation(res.data))
+      .catch(err => {
+       console.error(err);
+  });
+  }, []);
+
+
+
   return (
     <>
     <div style={{display:"flex", flexDirection:"row"}} >
@@ -12,7 +54,7 @@ const Header = () => {
         <NavbarComp />
           <div class="item">
             <img src="../destination.png" style={{width:"15px", height:"20px", marginTop:"45px"}}></img>
-            <span class="caption">Riker Hall</span>
+            <span class="caption">{location}</span>
           </div>
           <div class="inline-div" style={{marginTop:"40px", marginLeft: "240px"}}>
               <div style={{justifyContent:"center", textAlign:"center"}}>

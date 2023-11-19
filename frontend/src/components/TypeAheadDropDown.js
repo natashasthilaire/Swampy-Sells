@@ -57,7 +57,7 @@ export default class TypeAheadDropDown extends React.Component {
     render() {
         const {text}=this.state
         return (
-        <div className="TypeAheadDropDown" style={{overflowY: "scroll", maxHeight: "80px"}}>
+        <div className="TypeAheadDropDown" style={{overflowY: "scroll", maxHeight: "100px"}}>
           <input onChange={this.onTextChange} placeholder="Search dorm name" value={text} type="text" />
           {this.renderSuggestions()}
         </div>

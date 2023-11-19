@@ -53,6 +53,7 @@ mongoose.connect(process.env.MONGODB_URL, {
                 const passwordsMatch = await bcrypt.compare(password, user.password)
                 if (passwordsMatch) {
                     res.json("Success");
+                    
                 } else {
                     res.json("Incorrect password");
                 }
@@ -61,6 +62,33 @@ mongoose.connect(process.env.MONGODB_URL, {
             }
         })
     })  
+
+    app.get("/location", (req, res => {
+        
+    }))
+    /*app.get("/location", (req, res) => {
+        if (User) {
+            //res.json("Success");
+            res.json(User);
+        } else {
+            res.json("No existing record");
+        }
+    })
+    */
+    
+
+    /*app.post("/location", (req, res) => {
+        const {location} = req.body;
+        User.findOne({email: email}).then(async user => {
+            if (user) {
+                
+            } else {
+                res.json("No existing record");
+            }
+        })
+
+   })
+   */
 
     app.post("/forgot", (req, res) => {
         const {email} = req.body;
@@ -118,21 +146,6 @@ mongoose.connect(process.env.MONGODB_URL, {
             }
         })
     })
-
-    /*
-    db.products.insert(
-   [
-     { _id: 11, item: "pencil", qty: 50, type: "no.2" },
-     { item: "pen", qty: 20 },
-     { item: "eraser", qty: 25 }
-   ]
-    ) 
-    */
-
-   app.get("/home", (req, res) => {
-        
-
-   })
 
 });
 

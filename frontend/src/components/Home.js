@@ -5,14 +5,15 @@ import '../App.css'
 const Home = () => {
   const [items, setItems] = useState(null);
 
-  /*useEffect(() => {
+  useEffect(() => {
     const fetchItems = async () => {
-      const response = await fetch('http://localhost:3001/items');
+      /*const response = await fetch('http://localhost:3001/items');
       const json = await response.json()
 
       if (response.ok) {
         setItems(json);
       }
+      */
     }
     fetchItems();
   }, [])
@@ -26,8 +27,9 @@ const Home = () => {
       })}
     </div>
     </div>
+    
   );
-  */
+  
 };
 
 export default Home;
