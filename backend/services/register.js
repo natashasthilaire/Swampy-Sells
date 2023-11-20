@@ -2,11 +2,12 @@ const Register = require('../models/Register');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const hasher = require('../services/utils/hash');
+const express = require("express");
+const app = express();
 require('dotenv').config()
 
 exports.registerUser = async (req, res) => {
     try {
-
         const {firstName, lastName, email, password} = req.body
         console.log();
         console.log(firstName, lastName, email, password);
@@ -86,3 +87,6 @@ exports.getRegisteredUser = async(req, res) => {
         res.status(500).send(false)
     }
 }
+
+
+
