@@ -62,14 +62,6 @@ div.item {
   margin-left: -20px;
 }
 
-img {
-  border-radius: 8px;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
 .caption {
   display: block;
   color:black;
