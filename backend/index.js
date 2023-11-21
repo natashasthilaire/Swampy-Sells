@@ -23,7 +23,7 @@ const initializePassport = require('./auth/passportStrategy');
 //TODO Add ROUTES!
 
 const app = express();
-mongoose.connect(process.env.mongoDB_URI, {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -41,7 +41,7 @@ mongoose.connect(process.env.mongoDB_URI, {
     }
 
     const store = new MongoDBStore({
-        uri: process.env.mongoDB_URI,
+        uri: process.env.MONGODB_URL,
         collection: 'sessions'
     });
 
