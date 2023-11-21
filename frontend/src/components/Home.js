@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import '../App.css'
 
-const Home = () => {
+export const Home = () => {
   return (
     <div >
     <Header />
@@ -10,4 +10,3 @@ const Home = () => {
   );
 };
 
-export default Home;
