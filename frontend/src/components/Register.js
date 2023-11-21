@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CurrentLocation from "./CurrentLocation";
 import TypeAheadDropDown from "./TypeAheadDropDown";
 import dorms from "../locations";
 import { Link } from "react-router-dom";
@@ -124,6 +125,7 @@ export const Register = (props) => {
                 />
                 <label htmlFor="location">Location</label>
                 <TypeAheadDropDown onChange={(e)=> setLocation(e.target.value)} iteams={dorms} />
+                CurrentLocation.someval = <TypeAheadDropDown onChange={(e)=> setLocation(e.target.value)} iteams={dorms} />;
            </div>
             )}
             {verificationCode ? (

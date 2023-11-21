@@ -25,16 +25,6 @@ const Header = () => {
     fetchLocation();
   }, [])
   */
-  /*useEffect(() => {
-    axios
-      .get("http://localhost:5003/location")
-      .then((res) => setLocation(res.data))
-      .catch(err => {
-       console.error(err);
-  });
-  }, []);
-  */
-
   useEffect(() => {
     axios
       .get("http://localhost:5003/location")
@@ -43,8 +33,6 @@ const Header = () => {
        console.error(err);
   });
   }, []);
-
-
 
   return (
     <>

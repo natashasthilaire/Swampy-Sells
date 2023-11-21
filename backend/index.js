@@ -63,10 +63,8 @@ mongoose.connect(process.env.MONGODB_URL, {
         })
     })  
 
-    app.get("/location", (req, res => {
-        
-    }))
-    /*app.get("/location", (req, res) => {
+
+    app.get("/location", (req, res) => {
         if (User) {
             //res.json("Success");
             res.json(User);
@@ -74,7 +72,6 @@ mongoose.connect(process.env.MONGODB_URL, {
             res.json("No existing record");
         }
     })
-    */
     
 
     /*app.post("/location", (req, res) => {
