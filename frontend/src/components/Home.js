@@ -3,6 +3,7 @@ import Header from './Header';
 import '../App.css'
 
 export const Home = () => {
+  const [items, setItems] = useState(null);
   return (
     <div >
     <Header />

@@ -12,16 +12,6 @@ const submitForm = async(event) =>
 {
     //e.preventDefault is to prevent page from being reloaded
     event.preventDefault(); 
-    //3001 works
-    axios.post('http://localhost:5003/login', {email, password}).then(result => {
-        console.log(result);
-        if (result.data === "Success") {
-            navigate('/home')
-        } else {
-            alert('Incorrect Password')
-        }
-        
-    }).catch(err => console.log(err))
     console.log(email);
 
     try {
