@@ -2,15 +2,22 @@ const express = require('express'); //Import the express dependency
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 const PORT = config['PORT']
 const itemRoutes = require('./routes/item');
 const registerRoutes = require('./routes/register');
+const flash = require('express-flash');
+const methodOverride = require('method-override');
+const expressSession = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const User = require('./models/User');
 
+
+const initializePassport = require('./auth/passportStrategy');
 
 //Probably need bodyParser ?
 //TODO Add ROUTES!
@@ -25,13 +32,45 @@ mongoose.connect(process.env.MONGODB_URL, {
     // app.use(express.json());
     // app.use(express.urlencoded({ extended: true }));
     // app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
+    //app.use(bodyParser.json());
     //const cors = require('cors');
     const corsOptions ={
         origin:'http://localhost:3000', 
         credentials:true,            
-        optionSuccessStatus:200
+        //optionSuccessStatus:200
     }
+
+    const store = new MongoDBStore({
+        uri: process.env.MONGODB_URL,
+        collection: 'sessions'
+    });
+
+    store.on('error', function (error) {
+        console.error(error)
+    });
+
+    app.use(
+        expressSession({
+            secret: process.env.secret,
+            resave: false,
+            saveUninitialized: false,
+            store: store,
+            cookie: { 
+                secure: false,
+                httpOnly: true,
+                maxAge: 3600000
+            },
+        })
+    );
+    initializePassport(passport);
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    app.use(methodOverride('_method'));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+
     app.use(cors(corsOptions));
    
     app.get('/try', (req, res) => {
@@ -40,25 +79,18 @@ mongoose.connect(process.env.MONGODB_URL, {
     app.use('/api/item', itemRoutes);
     app.use('/api', registerRoutes);
     //Can add more routes here
-    app.listen(5003, () => {
-        console.log(`Server listening on port ${PORT}`)
+    app.get('/api/auth', (req, res) => {
+        if (req.isAuthenticated()) {
+            console.log(`/api/auth called:`);
+            res.status(200).json({ authenticated: true, user: req.user });
+        } else {
+            res.status(401).json({ authenticated: false, user: null });
+        }
     })
-    
-    app.post("/login", (req, res) => {
-        const {email, password} = req.body;
-        User.findOne({email: email}).then(async user => {
-            if (user) {
-                const passwordsMatch = await bcrypt.compare(password, user.password)
-                if (passwordsMatch) {
-                    res.json("Success");
-                } else {
-                    res.json("Incorrect password");
-                }
-            } else {
-                res.json("No existing record");
-            }
-        })
-    })  
+    app.post('/api/login', passport.authenticate('local'), (req, res) => {
+        // If the code reaches here, it means authentication was successful
+        res.status(200).json({ message: 'Login successful' });
+      });
 
     app.post("/forgot", (req, res) => {
         const {email} = req.body;
@@ -115,6 +147,10 @@ mongoose.connect(process.env.MONGODB_URL, {
                 .catch(err => res.send({Status: err}))
             }
         })
+    });
+
+    app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`)
     })
 });
 
