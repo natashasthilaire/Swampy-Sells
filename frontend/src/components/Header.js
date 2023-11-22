@@ -1,38 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 import NavbarComp from '../components/NavbarComp';
-import TypeAheadDropDown from './TypeAheadDropDown';
-import locations from '../locations';
-import dorms from "../locations";
-import '../App.css'
-var location = 'hey';
 
 const Header = () => {
-  const [email, setEmail] = useState(''); 
-  const [location, setLocation] = useState('');
-  /*useEffect(() => {
-    const fetchLocation = async () => {
-      const response = await fetch('http://localhost:5003/location');
-      const json = await response.json()
+  const { user } = useAuth();
 
-      if (response.ok) {
-        setLocation(json);
-        console.log('inside of header: ',location)
-      }
-    }
-
-    fetchLocation();
-  }, [])
-  */
   useEffect(() => {
-    axios
-      .get("http://localhost:5003/location")
-      .then((res) => setLocation(res.data))
-      .catch(err => {
-       console.error(err);
-  });
-  }, []);
+    console.log(user)
+  }, [user]);
 
   return (
     <>
@@ -42,8 +18,7 @@ const Header = () => {
         <NavbarComp />
           <div className="item">
             <img src="../destination.png" style={{width:"15px", height:"20px", marginTop:"45px"}}></img>
-            <span className="caption">Riker Hall</span>
-            <span class="caption">{location}</span>
+            <span className="caption">{user.location}</span>
           </div>
           <div className="inline-div" style={{marginTop:"40px", marginLeft: "240px"}}>
               <div style={{justifyContent:"center", textAlign:"center"}}>
