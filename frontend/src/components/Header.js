@@ -7,7 +7,7 @@ const Header = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    console.log(user)
+    
   }, [user]);
 
   return (

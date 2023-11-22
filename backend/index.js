@@ -8,7 +8,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 const PORT = config['PORT']
-const Item = require('./models/Item');
 const itemRoutes = require('./routes/item');
 const registerRoutes = require('./routes/register');
 const flash = require('express-flash');
