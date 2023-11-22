@@ -94,30 +94,6 @@ mongoose.connect(process.env.MONGODB_URL, {
         res.status(200).json({ message: 'Login successful' });
       });
 
-
-    app.get("/location", (req, res) => {
-        if (User) {
-            //res.json("Success");
-            res.json(User);
-        } else {
-            res.json("No existing record");
-        }
-    })
-    
-
-    /*app.post("/location", (req, res) => {
-        const {location} = req.body;
-        User.findOne({email: email}).then(async user => {
-            if (user) {
-                
-            } else {
-                res.json("No existing record");
-            }
-        })
-
-   })
-   */
-
     app.post("/forgot", (req, res) => {
         const {email} = req.body;
         User.findOne({email: email}).then(user => {
@@ -140,7 +116,7 @@ mongoose.connect(process.env.MONGODB_URL, {
                 from: 'swampysellsuf@gmail.com',
                 to: email,
                 subject: 'Reset Password Link',
-                text: `http://localhost:5003/reset/${user._id}/${token}`
+                text: `http://localhost:3000/reset/${user._id}/${token}`
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
