@@ -16,7 +16,6 @@ const methodOverride = require('method-override');
 const expressSession = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const User = require('./models/User');
-const { MongoDBCollectionNamespace, Db } = require('mongodb');
 
 
 const initializePassport = require('./auth/passportStrategy');
