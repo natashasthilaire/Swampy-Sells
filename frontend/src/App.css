@@ -1,11 +1,9 @@
-/*current App.css */
 
 .App {
   text-align: center;
   min-height: 100vh;
   align-items: center; 
   justify-content: center;
-  position:static;
   background-color: whitesmoke;
   background: linear-gradient(
     155deg,
