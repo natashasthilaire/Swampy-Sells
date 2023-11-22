@@ -18,6 +18,31 @@ export const Post = (props) => {
 
     const submitPost = async (event) => {
         event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('condition', condition);
+        formData.append('description', description);
+    
+        try {
+            const response = await fetch('http://localhost:5003/api/item/:id', {
+              method: 'POST',
+              body: formData,
+            });
+            if (response.ok) {
+                alert('Post Submitted');
+                setShowConfirmation(true)
+            } else {
+                alert('Error creating post')
+                throw Error;
+            }
+        } catch (error) {
+            alert('Error creating post')
+            console.error('Error uploading post:', error);
+        }
     }
 
     return (
