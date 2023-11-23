@@ -38,7 +38,7 @@ export const Reset = (props) => {
   return (
 
     <div className="auth-form-container">
-          <img src='swampysells-logo.png'></img>
+          <img className='reset-logo' src='/swampysells-logo.png'></img>
           <h1>Reset Your Password</h1>
           <form onSubmit={handleSubmit} className="register-form">
               <div className="verification-container">
