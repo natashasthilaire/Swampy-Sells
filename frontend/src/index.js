@@ -6,6 +6,8 @@ import App from './App';
 import { AuthProvider } from './context/AuthProvider';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +16,10 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <App />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+        /> 
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

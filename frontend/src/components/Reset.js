@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export const Reset = (props) => {
   
@@ -32,7 +33,9 @@ export const Reset = (props) => {
         }
       }).catch(err => console.log(err))
     } else {
-      alert('Password must be at least 8 characters and contain one number, one uppercase, and one lowercase letter')
+      //alert('Password must be at least 8 characters and contain one number, one uppercase, and one lowercase letter')
+      toast.error('Password must be at least 8 characters and contain one number, one uppercase, and one lowercase letter',
+      { autoClose: false })
     }
   }    
   return (
