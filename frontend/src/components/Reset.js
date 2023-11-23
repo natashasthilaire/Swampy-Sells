@@ -44,10 +44,11 @@ export const Reset = (props) => {
               <div className="verification-container">
                 <label htmlFor='email'>New Password</label>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Enter your new password"
                   name="password"
                   onChange={(event) => setPassword(event.target.value)}
+                  required
                 />
               </div>
               <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Change Password</button>

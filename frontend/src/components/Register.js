@@ -51,16 +51,7 @@ export const Register = (props) => {
     }
     const validateInput = () => {
         const domainRegex = new RegExp("^[A-Za-z.]+@ufl\.edu$");
-        const nameRegex = new RegExp("^[A-Za-z ]+$");
 
-        if (!firstName || !lastName || !email || !password) {
-            alert("Empty Fields Not Allowed");
-            return false;
-        }
-        if (!nameRegex.test(firstName) || !nameRegex.test(lastName)){
-            alert("Invalid First Name or Last Name Field")
-            return false;
-        }
         if(!domainRegex.test(email)) {
             alert('Must Register With Valid UFL Email')
             return false;
@@ -84,6 +75,7 @@ export const Register = (props) => {
                   placeholder="Enter verification code"
                   id="verificationCode"
                   name="verificationCode"
+                  required
                 />
             </div>
             ) : (
@@ -95,6 +87,7 @@ export const Register = (props) => {
                     name="firstName"
                     id="firstName"
                     placeholder="First name"
+                    required
                 />
                 <label htmlFor="lastName">Last name</label>
                 <input
@@ -103,6 +96,7 @@ export const Register = (props) => {
                     name="lastName"
                     id="lastName"
                     placeholder="Last name"
+                    required
                 />
                 <label htmlFor="email">Email</label>
                 <input
@@ -112,6 +106,7 @@ export const Register = (props) => {
                     name="email"
                     id="email"
                     placeholder="Email address"
+                    required
                 />
                 <label htmlFor="password">Password</label>
                 <input
@@ -121,6 +116,7 @@ export const Register = (props) => {
                     name="password"
                     id="password"
                     placeholder="Password"
+                    required
                 />
                 <label htmlFor="location">Location</label>
                 <TypeAheadDropDown onChange={(e)=> setLocation(e.target.value)} iteams={dorms} />
