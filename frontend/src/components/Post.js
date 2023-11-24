@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import Header from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const Post = (props) => {
     const [image, setImage] = useState('');
@@ -10,7 +12,7 @@ export const Post = (props) => {
     const [category, setCategory] = useState('');
     const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
-    const [ShowConfirmation, setShowConfirmation] = useState(false);
+    const navigate = useNavigate();
 
     const handleImageChange = async (event) => {
         setImage(event.target.files[0])
@@ -33,24 +35,20 @@ export const Post = (props) => {
               body: formData,
             });
             if (response.ok) {
-                alert('Post Submitted');
-                setShowConfirmation(true)
+               toast.success('Post successfully submitted')
+               navigate('/home');
             } else {
-                alert('Error creating post')
                 throw Error;
             }
         } catch (error) {
-            alert('Error creating post')
             console.error('Error uploading post:', error);
+            toast.error('Error uploading post')
         }
     }
 
     return (
         <div>
             <Header />
-            {ShowConfirmation ? (
-            <div>Post successfully submitted</div>
-            ) : (
             <Form className="addPost-form" onSubmit={submitPost}>
                 <h2>Post a Listing</h2>
                 <Form.Group controlId="formFile" className="mb-2" src="../image,png">
@@ -100,7 +98,6 @@ export const Post = (props) => {
                 </Form.Group>
                 <Button type="submit">Post Listing</Button>
             </Form>
-            )}
         </div>
     )
 }
