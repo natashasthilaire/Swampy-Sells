@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 import NavbarComp from '../components/NavbarComp';
-import '../App.css'
 
 const Header = () => {
+  const { user } = useAuth();
+
+  useEffect(() => {
+    
+  }, [user]);
+
   return (
     <>
     <div style={{display:"flex", flexDirection:"row"}} >
@@ -12,7 +18,7 @@ const Header = () => {
         <NavbarComp />
           <div className="item">
             <img src="../destination.png" style={{width:"15px", height:"20px", marginTop:"45px"}}></img>
-            <span className="caption">Riker Hall</span>
+            <span className="caption">{user.location}</span>
           </div>
           <div className="inline-div" style={{marginTop:"40px", marginLeft: "240px"}}>
               <div style={{justifyContent:"center", textAlign:"center"}}>

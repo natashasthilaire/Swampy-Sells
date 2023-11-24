@@ -1,6 +1,6 @@
 import '../App.css'
 import { Home } from './Home'
-import React, {useState} from "react"; 
+import React, { useContext, useEffect, useState} from "react"; 
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -22,7 +22,6 @@ export const Forgot = (props) => {
             if (res.data.Status === "Success") {
                 console.log(email);
                 navigate('/login')
-    
             } 
         }).catch(err => console.log(err))
         //console.log(email);

@@ -8,9 +8,9 @@ require('dotenv').config()
 
 exports.registerUser = async (req, res) => {
     try {
-        const {firstName, lastName, email, password} = req.body
+        const {firstName, lastName, email, password, location} = req.body
         console.log();
-        console.log(firstName, lastName, email, password);
+        console.log(firstName, lastName, email, password, location);
         console.log();
        
         const verificationCode = Math.floor(100000 + Math.random() * 900000);
@@ -32,7 +32,8 @@ exports.registerUser = async (req, res) => {
                     firstName: firstName,
                     lastName: lastName,
                     email: email,
-                    password: hashedPass
+                    password: hashedPass,
+                    location: location
                 }
             );
             await newUser.save();

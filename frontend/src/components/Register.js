@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import TypeAheadDropDown from "./TypeAheadDropDown";
+import dorms from "../locations";
 import { Link } from "react-router-dom";
 
 export const Register = (props) => {
@@ -6,12 +8,11 @@ export const Register = (props) => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [location, setLocation] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [showVerification, setShowVerification] = useState(false);
 
-
     const submitForm =  async(event) => {
-        console.log('submitform is called')
         event.preventDefault();
         if(validateInput())
             try{
@@ -21,7 +22,7 @@ export const Register = (props) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ firstName, lastName, email, password }),
+                    body: JSON.stringify({ firstName, lastName, email, password, location }),
                 });
                 if (response.ok) {
                     alert('Check your inbox for code');
@@ -121,6 +122,8 @@ export const Register = (props) => {
                     id="password"
                     placeholder="Password"
                 />
+                <label htmlFor="location">Location</label>
+                <TypeAheadDropDown onChange={(e)=> setLocation(e.target.value)} iteams={dorms} />
            </div>
             )}
             {verificationCode ? (
