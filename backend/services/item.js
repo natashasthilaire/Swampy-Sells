@@ -1,7 +1,35 @@
 const Item = require('../models/Item');
 const Comment = require('../models/Comment');
+const multer = require('multer');
 
-exports.getItem = async (req, res) => {
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+const postItem = async(req, res) => {
+    console.log('Post Item Called')
+    console.log(req.body);
+    const imageBuffer = req.file.buffer;
+    try {
+        const newItem = new Item(
+            {
+                image: imageBuffer,
+                title: req.body.title, 
+                price: req.body.price, 
+                category: req.body.category, 
+                condition: req.body.condition, 
+                description: req.body.description
+                // TODO userID
+            }
+        )
+        await newItem.save();
+        res.status(200).json(Item);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error');
+    }
+}
+
+const getItem = async (req, res) => {
     const id = req.params.id;
     try {
         const item = await Item.findById(id);
@@ -14,7 +42,7 @@ exports.getItem = async (req, res) => {
     
 }
 
-exports.comment = async(req, res) => {
+const comment = async(req, res) => {
     const itemId = req.params.id;
     const commentData = req.body;
     try {
@@ -32,3 +60,5 @@ exports.comment = async(req, res) => {
     }
 
 }
+
+module.exports = { upload, postItem,  getItem, comment};

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TypeAheadDropDown from "./TypeAheadDropDown";
 import dorms from "../locations";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -25,47 +26,45 @@ export const Register = (props) => {
                     body: JSON.stringify({ firstName, lastName, email, password, location }),
                 });
                 if (response.ok) {
-                    alert('Check your inbox for code');
+                    //alert('Check your inbox for code');
+                    toast.info('Check your inbox for code');
                     setShowVerification(true);
                 } else {
-                    alert('Error sending Code')
+                   // alert('Error sending Code')
+                   toast.error('Error sending code');
                     throw Error;
                 }
 
             } catch (error) {
                 console.error(error);
+                toast.error('Error creating account');
             }
     }
     const handleVerification = async(event) => {
         try {
             const response = await fetch(`http://localhost:5003/api/register?email=${email}&code=${verificationCode}`);
             if (response.status ===200) {
-                alert('Found in db. created account')
+                //alert('Found in db. created account')
+                toast.success('Account successfully created')
             }
             else {
-                alert('Not found in db, did not create account');
+                //alert('Not found in db, did not create account');
+                throw new Error('Form submission failed');
             }
         } catch (error) {
             console.error(error)
+            toast.error('Error creating account');
+
         }
     }
     const validateInput = () => {
         const domainRegex = new RegExp("^[A-Za-z.]+@ufl\.edu$");
-        const nameRegex = new RegExp("^[A-Za-z ]+$");
 
-        if (!firstName || !lastName || !email || !password) {
-            alert("Empty Fields Not Allowed");
-            return false;
-        }
-        if (!nameRegex.test(firstName) || !nameRegex.test(lastName)){
-            alert("Invalid First Name or Last Name Field")
-            return false;
-        }
         if(!domainRegex.test(email)) {
-            alert('Must Register With Valid UFL Email')
+            //alert('Must Register With Valid UFL Email')
+            toast.error('Must Register With Valid UFL Email');
             return false;
         }
-
         return true;
     };
     
@@ -76,6 +75,7 @@ export const Register = (props) => {
           <form className="register-form" onSubmit={showVerification ? handleVerification : submitForm}>
             {showVerification ? (
               <div className="verification-container">
+                
                 <label htmlFor="verificationCode">Verification Code</label>
                 <input
                   value={verificationCode}
@@ -84,6 +84,7 @@ export const Register = (props) => {
                   placeholder="Enter verification code"
                   id="verificationCode"
                   name="verificationCode"
+                  required
                 />
             </div>
             ) : (
@@ -95,6 +96,7 @@ export const Register = (props) => {
                     name="firstName"
                     id="firstName"
                     placeholder="First name"
+                    required
                 />
                 <label htmlFor="lastName">Last name</label>
                 <input
@@ -103,6 +105,7 @@ export const Register = (props) => {
                     name="lastName"
                     id="lastName"
                     placeholder="Last name"
+                    required
                 />
                 <label htmlFor="email">Email</label>
                 <input
@@ -112,6 +115,7 @@ export const Register = (props) => {
                     name="email"
                     id="email"
                     placeholder="Email address"
+                    required
                 />
                 <label htmlFor="password">Password</label>
                 <input
@@ -121,6 +125,7 @@ export const Register = (props) => {
                     name="password"
                     id="password"
                     placeholder="Password"
+                    required
                 />
                 <label htmlFor="location">Location</label>
                 <TypeAheadDropDown onChange={(e)=> setLocation(e.target.value)} iteams={dorms} />

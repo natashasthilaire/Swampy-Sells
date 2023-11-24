@@ -19,7 +19,6 @@ const User = require('./models/User');
 
 const initializePassport = require('./auth/passportStrategy');
 
-//Probably need bodyParser ?
 //TODO Add ROUTES!
 
 const app = express();
@@ -29,10 +28,10 @@ mongoose.connect(process.env.MONGODB_URL, {
 })
 .then(() => {
     console.log('Connected to MongoDB');
-    // app.use(express.json());
-    // app.use(express.urlencoded({ extended: true }));
-    // app.use(bodyParser.urlencoded({ extended: true }));
-    //app.use(bodyParser.json());
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
     //const cors = require('cors');
     const corsOptions ={
         origin:'http://localhost:3000', 
@@ -155,3 +154,4 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 });
 
+module.exports = app;

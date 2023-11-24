@@ -33,7 +33,7 @@ export const Forgot = (props) => {
                 <p>Enter your email and we'll send you<br></br> a link to reset your password</p>     
                 <form className="login-form" onSubmit={submitForm}>
                     <label htmlFor="email">Email </label>
-                    <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email"/>
+                    <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email" required/>
                     <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Send Link</button>
                 </form>
             <Link to='/' style={{marginTop:"10px"}}>Already have an account? Login here</Link>

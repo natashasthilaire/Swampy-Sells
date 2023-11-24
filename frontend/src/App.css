@@ -75,7 +75,7 @@ div.item {
   display: flex;
 }
 
-.login-logo, .register-logo
+.login-logo, .register-logo, .reset-logo
 {
   height: 200px;
   width: 250px;

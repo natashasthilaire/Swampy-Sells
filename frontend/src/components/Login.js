@@ -27,9 +27,9 @@ const submitForm = async(event) =>
             <h2>Welcome!</h2>
             <form className="login-form"onSubmit={submitForm}>
                 <label htmlFor="email">Email </label>
-                <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email"/>
+                <input value = {email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" id="email" name="email" required/>
                 <label htmlFor="password">Password </label>
-                <input value={password} onChange={(event) => setPassword(event.target.value)}type="password" placeholder="Enter password" id="password" name="password"/>
+                <input value={password} onChange={(event) => setPassword(event.target.value)}type="password" placeholder="Enter password" id="password" name="password" required/>
                 <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Log In</button>
             </form>
         <Link to='/register'>Don't have an account? Sign up</Link>
