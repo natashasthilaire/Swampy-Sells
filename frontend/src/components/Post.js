@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -15,7 +15,13 @@ export const Post = (props) => {
     const navigate = useNavigate();
 
     const handleImageChange = async (event) => {
-        setImage(event.target.files[0])
+        const image = event.target.files[0]
+        if (image == null)
+            setImage('')
+        else if (image.size <= (16 * 1024 * 1024))
+            setImage(image)
+        else
+            toast.error('File cannot exceed 16 megabytes')
     }
 
     const submitPost = async (event) => {

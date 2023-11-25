@@ -3,7 +3,7 @@ const Comment = require('../models/Comment');
 const multer = require('multer');
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage, limits: { filesize: 16 * 1024 * 1024}, });
 
 const postItem = async(req, res) => {
     console.log('Post Item Called')
