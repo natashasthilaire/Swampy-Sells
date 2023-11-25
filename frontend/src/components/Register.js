@@ -26,11 +26,9 @@ export const Register = (props) => {
                     body: JSON.stringify({ firstName, lastName, email, password, location }),
                 });
                 if (response.ok) {
-                    //alert('Check your inbox for code');
                     toast.info('Check your inbox for code');
                     setShowVerification(true);
                 } else {
-                   // alert('Error sending Code')
                    toast.error('Error sending code');
                     throw Error;
                 }
@@ -44,11 +42,9 @@ export const Register = (props) => {
         try {
             const response = await fetch(`http://localhost:5003/api/register?email=${email}&code=${verificationCode}`);
             if (response.status ===200) {
-                //alert('Found in db. created account')
                 toast.success('Account successfully created')
             }
             else {
-                //alert('Not found in db, did not create account');
                 throw new Error('Form submission failed');
             }
         } catch (error) {
@@ -61,7 +57,6 @@ export const Register = (props) => {
         const domainRegex = new RegExp("^[A-Za-z.]+@ufl\.edu$");
 
         if(!domainRegex.test(email)) {
-            //alert('Must Register With Valid UFL Email')
             toast.error('Must Register With Valid UFL Email');
             return false;
         }
