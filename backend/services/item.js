@@ -17,8 +17,8 @@ const postItem = async(req, res) => {
                 price: req.body.price, 
                 category: req.body.category, 
                 condition: req.body.condition, 
-                description: req.body.description
-                // TODO userID
+                description: req.body.description,
+                user: req.body.userId
             }
         )
         await newItem.save();

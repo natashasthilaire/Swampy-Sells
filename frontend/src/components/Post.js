@@ -4,8 +4,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 export const Post = (props) => {
+    const { user } = useAuth();
     const [image, setImage] = useState('');
     const [title, setTitle] = useState(''); 
     const [price, setPrice] = useState('');
@@ -13,6 +15,8 @@ export const Post = (props) => {
     const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {}, [user]);
 
     const handleImageChange = async (event) => {
         const image = event.target.files[0]
@@ -34,6 +38,7 @@ export const Post = (props) => {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
+        formData.append('userId', user._id);
     
         try {
             const response = await fetch('http://localhost:5003/api/item/:id', {
