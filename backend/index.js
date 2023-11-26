@@ -91,18 +91,7 @@ mongoose.connect(process.env.MONGODB_URL, {
     app.post('/api/login', passport.authenticate('local'), (req, res) => {
         // If the code reaches here, it means authentication was successful
         res.status(200).json({ message: 'Login successful' });
-      });
-
-    /*app.get("posted/:user", async (req, res) => {
-        try {
-          const posts = await Item.find({user: req.users._id}).sort({date: -1}).lean();
-          res.status(200).send(posts);
-        }
-        catch (error) {
-          res.status(500).send({error: error.message});
-        }
-      });  
-    */
+    });
 
     app.post("/forgot", (req, res) => {
         const {email} = req.body;
