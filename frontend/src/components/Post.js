@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form';
 import { useAuth } from "../context/AuthProvider";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
 
 export const Post = (props) => {
     const { user } = useAuth();
