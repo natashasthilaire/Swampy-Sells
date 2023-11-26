@@ -33,7 +33,7 @@ const itemSchema = new mongoose.Schema(
         },  
         location: {
             type: String,
-            requried: true
+            required: true
         }
     },
     { collection: 'items'}
