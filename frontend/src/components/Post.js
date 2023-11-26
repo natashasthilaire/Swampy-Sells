@@ -39,6 +39,7 @@ export const Post = (props) => {
         formData.append('condition', condition);
         formData.append('description', description);
         formData.append('userId', user._id);
+        formData.append('location', user.location);
     
         try {
             const response = await fetch('http://localhost:5003/api/item/:id', {

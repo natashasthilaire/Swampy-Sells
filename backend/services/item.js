@@ -18,7 +18,8 @@ const postItem = async(req, res) => {
                 category: req.body.category, 
                 condition: req.body.condition, 
                 description: req.body.description,
-                user: req.body.userId
+                user: req.body.userId,
+                location: req.body.location
             }
         )
         await newItem.save();
