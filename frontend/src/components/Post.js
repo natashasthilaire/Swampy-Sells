@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useAuth } from "../context/AuthProvider";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +14,12 @@ export const Post = (props) => {
     const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+    const user = useAuth();
+
+    useEffect(() => {
+        
+    }, [user])
+    
 
     const handleImageChange = async (event) => {
         setImage(event.target.files[0])
@@ -96,6 +103,8 @@ export const Post = (props) => {
                     <Form.Control value={description} onChange={(event) => setDescription(event.target.value)} 
                         as="textarea" rows={3} maxLength={150} placeholder="Description" required/>
                 </Form.Group>
+                <input type="hidden" id="location" name="location" value={user.location} /*onSubmit={setLocation(user.location)}*/ />
+                {console.log('this is user location: '+user.location)}
                 <Button type="submit">Post Listing</Button>
             </Form>
         </div>

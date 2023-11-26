@@ -11,6 +11,13 @@ import { History } from './components/History';
 import { Inbox } from './components/Inbox';
 import { Profile } from './components/Profile';
 import { useAuth } from './context/AuthProvider';
+import { Textbooks } from './components/Textbooks';
+import { Appliances } from './components/Appliances';
+import { Clothes } from './components/Clothes';
+import { GeneralDecor } from './components/GeneralDecor';
+import { Furniture } from './components/Furniture';
+import { Tickets } from './components/Tickets';
+import { Other } from './components/Other';
 
 function ProtectRoute({ element, ...rest }) {
   const  { authenticated } = useAuth();
@@ -37,6 +44,13 @@ function App() {
         <Route path='profile' element={<ProtectRoute element={<Profile />}/>}/>
         <Route path='forgot' element={<Forgot />}></Route>
         <Route path='/reset/:id/:token' element={<Reset />}></Route>
+        <Route path='textbooks' element={<ProtectRoute element={<Textbooks />}/>}/>
+        <Route path='clothes' element={<ProtectRoute element={<Clothes />}/>}/>
+        <Route path='decor' element={<ProtectRoute element={<GeneralDecor />}/>}/>
+        <Route path='furniture' element={<ProtectRoute element={<Furniture />}/>}/>
+        <Route path='appliances' element={<ProtectRoute element={<Appliances />}/>}/>
+        <Route path='tickets' element={<ProtectRoute element={<Tickets />}/>}/>
+        <Route path='other' element={<ProtectRoute element={<Other />}/>}/>
       </Routes>
     </div>
     </>

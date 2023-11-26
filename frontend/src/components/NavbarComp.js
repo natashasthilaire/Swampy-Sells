@@ -5,6 +5,13 @@ import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 
 export default class NavbarComp extends Component {
+
+  toggleClass() {
+    //const currentState = this.state.active;
+    //this.setState({ active: !currentState });
+    console.log('clicked');
+};
+
   render() {
     return (
       <Navbar expand="lg" className="body-tertiary" style={{borderRadius:"50%"}}>
@@ -16,7 +23,7 @@ export default class NavbarComp extends Component {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success" style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF"}}>Search</Button>
+            <Button variant="outline-success" onClick={this.toggleClass} style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF"}}>Search</Button>
           </Form>
       </Container>
     </Navbar>

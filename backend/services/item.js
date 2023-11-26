@@ -19,6 +19,8 @@ const postItem = async(req, res) => {
                 condition: req.body.condition, 
                 description: req.body.description
                 // TODO userID
+              
+                
             }
         )
         await newItem.save();
