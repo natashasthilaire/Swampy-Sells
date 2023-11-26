@@ -16,12 +16,6 @@ export const Post = (props) => {
     const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
-    const user = useAuth();
-
-    useEffect(() => {
-        
-    }, [user])
-    
 
     useEffect(() => {}, [user]);
 
