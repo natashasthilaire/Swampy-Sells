@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 export const Post = (props) => {
+    const { user } = useAuth();
     const [image, setImage] = useState('');
     const [title, setTitle] = useState(''); 
     const [price, setPrice] = useState('');
@@ -14,8 +16,16 @@ export const Post = (props) => {
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
 
+    useEffect(() => {}, [user]);
+
     const handleImageChange = async (event) => {
-        setImage(event.target.files[0])
+        const image = event.target.files[0]
+        if (image == null)
+            setImage('')
+        else if (image.size <= (16 * 1024 * 1024))
+            setImage(image)
+        else
+            toast.error('File cannot exceed 16 megabytes')
     }
 
     const submitPost = async (event) => {
@@ -28,6 +38,8 @@ export const Post = (props) => {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
+        formData.append('userId', user._id);
+        formData.append('location', user.location);
     
         try {
             const response = await fetch('http://localhost:5003/api/item/:id', {

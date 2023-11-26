@@ -29,7 +29,12 @@ const itemSchema = new mongoose.Schema(
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        }  
+            required: true
+        },  
+        location: {
+            type: String,
+            requried: true
+        }
     },
     { collection: 'items'}
 );

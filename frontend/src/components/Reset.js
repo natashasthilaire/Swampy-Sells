@@ -33,7 +33,6 @@ export const Reset = (props) => {
         }
       }).catch(err => console.log(err))
     } else {
-      //alert('Password must be at least 8 characters and contain one number, one uppercase, and one lowercase letter')
       toast.error('Password must be at least 8 characters and contain one number, one uppercase, and one lowercase letter',
       { autoClose: false })
     }
