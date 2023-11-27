@@ -5,11 +5,22 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { bookmarks, posts } from "../DummyData"
 import "../styles/Profile.css";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 // TODO(bllndalichako): Replace dummy data with real data
 export const Profile = (props) => {
   const [user, setUser] = useState({});
   const { id } = useParams();
+  // const [toggle, setToggle] = useState("posts");
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   useEffect(() => {
     axios
@@ -21,6 +32,39 @@ export const Profile = (props) => {
         console.log(err);
       });
   }, []);
+
+  function CustomTabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  CustomTabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
   return <div>
     {/* TODO(bndalichako): Remove dummy data */}
@@ -51,11 +95,13 @@ export const Profile = (props) => {
             </div>
           </div>
           <div className="bottom-info">
-            <div className="headings">
-              <h1 className="posts-heading">Posts</h1>
-              <h1 className="bookmarks-heading">Bookmarks</h1>
-            </div>
-            <div className="posts">
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tab label="Posts" {...a11yProps(0)} />
+                <Tab label="Bookmarks" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+            <CustomTabPanel value={value} index={0} className="posts">
               <div className="posts-list">
                 {/*{user.bookmarks?.map((post) => (*/}
                 {posts?.map((post) => (
@@ -74,8 +120,8 @@ export const Profile = (props) => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="bookmarks">
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1} className="bookmarks">
               <div className="bookmarks-list">
                 {/*{user.bookmarks?.map((post) => (*/}
                 {bookmarks?.map((post) => (
@@ -94,8 +140,7 @@ export const Profile = (props) => {
                   </div>
                 ))}
               </div>
-            </div>
-
+            </CustomTabPanel>
           </div>
         </div>
       </div>
