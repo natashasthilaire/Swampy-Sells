@@ -11,7 +11,8 @@ const registerRoutes = require('./routes/register');
 //messaging: 
 const http = require('http'); 
 const {Server} = require('socket.io'); 
-const messageRoutes = require('./routes/message');
+const messageRoute = require('./routes/messages');
+const conversationRoute = require('./routes/conversations'); 
  
 
 //Probably need bodyParser ?
@@ -38,6 +39,8 @@ mongoose.connect(process.env.MONGODB_URL, {
         });
         app.use('/api/item', itemRoutes);
         app.use('/api', registerRoutes);
+        app.use('/api/conversations', conversationRoute); 
+        app.use('/api/messages', messageRoute); 
         //Can add more routes here
 
 
@@ -54,7 +57,6 @@ mongoose.connect(process.env.MONGODB_URL, {
                 methods: ["GET", "POST"],
             }
         }) 
-        app.use('api/messages', messageRoutes);
 
         //how we listen to events in socketio
         //when a user connects to server, this will run

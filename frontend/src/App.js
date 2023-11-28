@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import  Home  from './components/Home';
 import { Post } from './components/Post';
 import { History } from './components/History';
-import { Inbox } from './components/Inbox';
+import { Inbox } from './components/Inbox/Inbox';
 import { Profile } from './components/Profile';
 
 function App() {
