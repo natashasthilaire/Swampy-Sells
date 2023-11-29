@@ -2,20 +2,19 @@ import "./conversation.css"
 import React, {useState, useEffect} from "react";
 import axios from "axios"; 
 
-export const Conversation = ({conversation, currentUser}) => {
+export const Conversation = (conversation, currentUser) => {
 
     const [user, setUser] = useState(null); 
 
     useEffect(() => {
         //we are looking for friend !==
-        console.log(conversation.members); 
-        const friendId = conversation.members.find((m) => m !== currentUser._id); 
+        const friendId = conversation.member.find(m=>m !== currentUser._id); 
         //get user info for friends
         const getUser = async() =>{
             try{
                 //update: 
-                console.log("http://localhost:5003/api/user/" + friendId)
-                const res = await axios("http://localhost:5003/api/user/" + friendId); 
+                const res = await axios(`http://localhost:5003/api/user/${friendId}`); 
+                console.log(res); 
                 setUser(res.data); 
             }
             catch(err) {
@@ -29,7 +28,7 @@ export const Conversation = ({conversation, currentUser}) => {
         <div>
             <div className="conversation"> 
                 <img className="conversationImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF65dDrnV_Acx-_JX7o7pyfh4uYMITFMQi5w&usqp=CAU" alt=""/>
-                <span className="conversationName"> {user?.firstName}</span>
+                <span className="conversationName">{user.firstName} {user.lastName} </span>
             </div>
         </div>
     )

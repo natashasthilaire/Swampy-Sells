@@ -153,7 +153,7 @@ mongoose.connect(process.env.MONGODB_URL, {
         });
         app.use('/api/conversations', conversationRoute);
         app.use('/api/messages', messageRoute);
-        app.use('/api/user', userRoute); 
+        app.use('api/user', userRoute); 
 
         app.listen(PORT, () => {
             console.log(`Server listening on port ${PORT}`)
