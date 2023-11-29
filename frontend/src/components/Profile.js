@@ -18,11 +18,11 @@ import Stack from '@mui/material/Stack';
 import { deepOrange } from '@mui/material/colors';
 
 
-// TODO(bllndalichako): Marking an item sold and deleting from homepage.
-// TODO(bllndalichako): Delete item.
-// TODO(bllndalichako): Item pop up when user clicks on item.
-// TODO(bllndalichako): User upload profile picture.
-// TODO(bllndalichako): Bookmarking.
+// TODO(bllndalichako): Marking an item sold and deleting from homepage. (4)
+// TODO(bllndalichako): Delete item. (3)
+// TODO(bllndalichako): Item pop up when user clicks on item. (2)
+// TODO(bllndalichako): User upload profile picture. (5)
+// TODO(bllndalichako): Bookmarking. (1)
 export const Profile = (props) => {
   const { user } = useAuth(); // get the current user
   const [listings, setListings] = useState(null)
