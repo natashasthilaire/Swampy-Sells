@@ -1,45 +1,115 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "./Header";
-import { NavBar } from "./NavBar";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 export const Post = (props) => {
+    const { user } = useAuth();
     const [image, setImage] = useState('');
     const [title, setTitle] = useState(''); 
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
+    const [condition, setCondition] = useState('');
     const [description, setDescription] = useState('');
-    const submitPost = (event) => {
-        event.preventDefault();
+    const navigate = useNavigate();
+
+    useEffect(() => {}, [user]);
+
+    const handleImageChange = async (event) => {
+        const image = event.target.files[0]
+        if (image == null)
+            setImage('')
+        else if (image.size <= (16 * 1024 * 1024))
+            setImage(image)
+        else
+            toast.error('File cannot exceed 16 megabytes')
     }
 
-    function handleImageChange(event) {
-        if (event.target.files[0] != null)
-            setImage(URL.createObjectURL(event.target.files[0]));
-        else
-            setImage('')
+    const submitPost = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('condition', condition);
+        formData.append('description', description);
+        formData.append('userId', user._id);
+        formData.append('location', user.location);
+    
+        try {
+            const response = await fetch('http://localhost:5003/api/item/:id', {
+              method: 'POST',
+              body: formData,
+            });
+            if (response.ok) {
+               toast.success('Post successfully submitted')
+               navigate('/home');
+            } else {
+                throw Error;
+            }
+        } catch (error) {
+            console.error('Error uploading post:', error);
+            toast.error('Error uploading post')
+        }
     }
 
     return (
         <div>
-             <Header />
-            <h2>Post an Item</h2>
-            <form className="addPost-form">
-                <label>Upload Images of Item:</label>
-                <input type="file" id="input" multiple accept="image/*" onChange={handleImageChange} />
-                <img src={image} witdh="100" height="100" />
-                <label htmlFor="text">Listing Title: </label>
-                <input value = {title} onChange={(event) => setTitle(event.target.value)} type="text" placeholder="Title" id="title" name="title"/>
-                <label htmlFor="number">Price: </label>
-                <input value={price} onChange={(event) => setPrice(event.target.value)} type="number"  placeholder="Price" id="price" name="price"/>
-                <label htmlFor="text">Category: </label>
-                <input value = {category} onChange={(event) => setCategory(event.target.value)} type="text" placeholder="Category" id="category" name="category"/>
-                <label htmlFor="text">Description: </label>
-                <textarea value={description} onChange={(event) => setDescription(event.target.value)} type="text"  placeholder="Description" id="description" name="description">
-                    Description
-                </textarea>
-                <p></p>
-                <button type="submit" style={{borderRadius:"10px"}}>Post</button>
-            </form>
+            <Header />
+            <Form className="addPost-form" onSubmit={submitPost}>
+                <h2>Post a Listing</h2>
+                <Form.Group controlId="formFile" className="mb-2" src="../image,png">
+                    <Form.Label>Add Photo</Form.Label>
+                    <Form.Control type="file" name="file" onChange={(event) => handleImageChange(event)} accept="image/*" required/>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Listing Title</Form.Label>
+                    <Form.Control value={title} onChange={(event) => setTitle(event.target.value)} type="text" placeholder="Listing title" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label htmlFor="number">Price</Form.Label>
+                    <Form.Control value={price} onChange={(event) => setPrice(event.target.value)} type="number" placeholder="Enter price" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Category</Form.Label>
+                    <Form.Select value={category} onChange={(event) => setCategory(event.target.value)} required>
+                        <option value="" disabled>Choose Category</option>
+                        <option value="Textbooks">Textbooks</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="General Decor">General Decor</option> 
+                        <option value="Furniture">Furniture</option>
+                        <option value="Appliances">Appliances</option>
+                        <option value="Tickets">Tickets</option>
+                        <option value="Other">Other</option>           
+                </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Condition</Form.Label>
+                    <Form.Select value={condition} onChange={(event) => setCondition(event.target.value)} required>
+                        <option value="" disabled>Choose Condition</option>
+                        <option value="New">New</option>
+                        <option value="Like New">Like New</option>
+                        <option value="Good">Good</option>
+                        <option value="Used">Used</option>          
+                </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control value={description} onChange={(event) => setDescription(event.target.value)} 
+                        as="textarea" rows={3} maxLength={150} placeholder="Description" required/>
+                </Form.Group>
+                <Button type="submit">Post Listing</Button>
+            </Form>
         </div>
     )
 }

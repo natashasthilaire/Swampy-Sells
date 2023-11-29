@@ -12,9 +12,8 @@ code {
     monospace;
 }
 
-
 a:link { 
-  text-decoration: none!important;
+  text-decoration: none;
 }
 
 nav {
@@ -30,7 +29,6 @@ nav a {
   margin-left: 10px;
 }
 
-
 .navbar-logo {
   width: 12%;
   height: auto; 
@@ -40,8 +38,6 @@ nav a {
   width: 3%;
   height: auto; 
 }
-
-
 
 .addPost-form {
   background-color: white;
@@ -61,12 +57,12 @@ nav a {
 
 .addPost-form input,
 .addPost-form textarea {
-  width: 95%;
+  width: 100%;
   padding: 5px;
   margin-bottom: 10px;
   border-radius: 8px;
   background-color: #F5F2F2;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .addPost-form button {
@@ -74,6 +70,13 @@ nav a {
   color: white;
   padding: 10px 20px;
   border: 1px black;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: medium;
 }
+
+.addPost-form h2 {
+  font-size: largest;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
