@@ -14,13 +14,13 @@ import Box from '@mui/material/Box';
 import { useAuth } from '../context/AuthProvider';
 import { Buffer } from 'buffer';
 import { useNavigate} from "react-router-dom";
+import Stack from '@mui/material/Stack';
 
 
-// TODO(bllndalichako): Marking an item sold and deleting it.
-// TODO(bllndalichako): Mark item sold
-// TODO(bllndalichako): Delete item
-// TODO(bllndalichako): Item pop up when user clicks on item
-// TODO(bllndalichako): User upload profile picture
+// TODO(bllndalichako): Marking an item sold and deleting from homepage.
+// TODO(bllndalichako): Delete item.
+// TODO(bllndalichako): Item pop up when user clicks on item.
+// TODO(bllndalichako): User upload profile picture.
 // TODO(bllndalichako): Bookmarking.
 export const Profile = (props) => {
   const { user } = useAuth(); // get the current user
@@ -97,35 +97,13 @@ export const Profile = (props) => {
   }
 
   return <div>
-    {/* TODO(bndalichako): Remove dummy data */}
     <Header />
-
-    {/* show current users posts/listings
-    <h2> {user.firstName}'s Listings</h2>
-        <div> 
-          { 
-          listings ? (
-          <div>
-            {listings.map((listing, index) => (
-              <div key={index}>
-                <h1>{listing.title}</h1>
-                <img src={`data:image/jpeg;base64,${Buffer.from(listing.image).toString('base64')}`} alt={'No Image Available'} />
-              </div>
-            ))}
-          </div>
-          ) : (
-          <p>No Listings Found</p>
-          )}
-        </div> */}
     <div className="profile">
       <div className="view">
         <div className="info">
           <div className="top-info">
             <div className="profile-info">
-              <img className="profile-img"
-                src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2"
-                alt=""
-              />
+              <Avatar className="profile-img" sx={{fontSize: "4.5rem"}}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
               <div className="identifiers">
                 <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
@@ -137,7 +115,6 @@ export const Profile = (props) => {
               </div>
             </div>
             <div className="profile-links">
-              {/*TODO(bndalichako): Add logout functionality */}
               <button className="logout-button" onClick={handleLogout}>Log Out</button>
             </div>
           </div>
