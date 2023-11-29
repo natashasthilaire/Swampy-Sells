@@ -32,8 +32,8 @@ const submitForm = async(event) =>
                 <input value={password} onChange={(event) => setPassword(event.target.value)}type="password" placeholder="Enter password" id="password" name="password" required/>
                 <button type="submit" style={{borderRadius:"10px", marginTop:"10px"}}>Log In</button>
             </form>
-        <Link to='/register'>Don't have an account? Sign up</Link>
-        <Link to='/forgot' style={{textDecorationLine:"underline"}}>Forgot your password?</Link>
+        <Link to='/register' style={{color:"black", textDecoration:"underline"}}>Don't have an account? Sign up</Link>
+        <Link to='/forgot' style={{color:"black", textDecoration:"underline"}}>Forgot your password?</Link>
         </div>
     )
 }
