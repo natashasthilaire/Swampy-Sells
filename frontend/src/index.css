@@ -47,6 +47,9 @@ nav a {
   width: 50%;
   box-shadow: #292323;
   margin: 0 auto;
+  text-align: center;
+  align-items: center; 
+  justify-content: center;
 } 
 
 .addPost-form label {
