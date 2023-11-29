@@ -11,10 +11,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useAuth } from '../context/AuthProvider';
+import { Buffer } from 'buffer';
 
 // TODO(bllndalichako): Replace dummy data with real data
 export const Profile = (props) => {
-  const [user, setUser] = useState({});
+  const { user } = useAuth(); // get the current user
+  const [listings, setListings] = useState(null)
+  // const [user, setUser] = useState({});
   const { id } = useParams();
   // const [toggle, setToggle] = useState("posts");
   const [value, setValue] = React.useState(0);
@@ -23,15 +27,29 @@ export const Profile = (props) => {
     setValue(newValue);
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:5555/users/${id}`)
+  //     .then((res) => {
+  //       setUser(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  // get user posts
   useEffect(() => {
-    axios
-      .get(`http://localhost:5555/users/${id}`)
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const getListings = async () =>  {
+      try {
+        const responseWithPosts = await axios.get(`http://localhost:5003/api/item/:id/userItems/${user._id}`);
+        setListings(responseWithPosts.data)
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getListings()
   }, []);
 
   function CustomTabPanel(props) {
@@ -70,6 +88,24 @@ export const Profile = (props) => {
   return <div>
     {/* TODO(bndalichako): Remove dummy data */}
     <Header />
+
+    {/* show current users posts/listings
+    <h2> {user.firstName}'s Listings</h2>
+        <div> 
+          { 
+          listings ? (
+          <div>
+            {listings.map((listing, index) => (
+              <div key={index}>
+                <h1>{listing.title}</h1>
+                <img src={`data:image/jpeg;base64,${Buffer.from(listing.image).toString('base64')}`} alt={'No Image Available'} />
+              </div>
+            ))}
+          </div>
+          ) : (
+          <p>No Listings Found</p>
+          )}
+        </div> */}
     <div className="profile">
       <div className="view">
         <div className="info">
@@ -81,7 +117,7 @@ export const Profile = (props) => {
               />
               <div className="identifiers">
                 <h1 className="student-name">Gator Student</h1>
-                {/*<h1>{user.firstName} {user.lastName}</h1>*/}
+                <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
                   {/*TODO(bndalichako): Remove constants*/}
                   <p>{user.postsCount} 23 items listed</p>
