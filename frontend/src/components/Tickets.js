@@ -3,11 +3,11 @@ import Header from './Header';
 import ItemDetails from './ItemDetails'
 import axios from 'axios'
 
-export const Home = () => {
+export const Tickets = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5003/getItems')
+    axios.get('http://localhost:5003/getTickets')
     .then(items => setItems(items.data))
     .catch(err => console.log(err))
   }, [])
@@ -16,7 +16,7 @@ export const Home = () => {
     <>
     <Header /> 
     <div className='items-list'>
-      {items && items.map((item) => (
+      {items && items.map((item)  => (
        <ItemDetails key={item._id} item={item}/>
       ))}
     </div>

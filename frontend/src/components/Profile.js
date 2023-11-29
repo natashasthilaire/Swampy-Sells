@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { bookmarks, posts } from "../DummyData"
 import "../styles/Profile.css";
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -127,7 +128,7 @@ export const Profile = (props) => {
             </div>
             <div className="profile-links">
               {/*TODO(bndalichako): Add logout functionality */}
-              <button className="logout-button">Log Out</button>
+              <Link to='/'><button className="logout-button" style={{backgroundColor:"lightgray", color:"blue"}}>Log Out</button></Link>
             </div>
           </div>
           <div className="bottom-info">
