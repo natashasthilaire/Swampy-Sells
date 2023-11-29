@@ -62,4 +62,17 @@ const comment = async(req, res) => {
 
 }
 
-module.exports = { upload, postItem,  getItem, comment};
+const getUserItems = async(req, res) => {
+    const user = req.params.userId
+    try {
+        const items = await Item.find().where({ user: user })
+        console.log(items)
+        return res.status(200).json(items);
+
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send('Error');
+    }
+}
+
+module.exports = { upload, postItem,  getItem, comment, getUserItems};
