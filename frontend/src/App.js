@@ -18,6 +18,7 @@ import { GeneralDecor } from './components/GeneralDecor';
 import { Furniture } from './components/Furniture';
 import { Tickets } from './components/Tickets';
 import { Other } from './components/Other';
+import Search from './components/Search';
 
 function ProtectRoute({ element, ...rest }) {
   const  { authenticated } = useAuth();
@@ -36,6 +37,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Login />}></Route>
+        <Route path='/search' element={<ProtectRoute element={<Search />}/>}/>
         <Route path='register' element={<Register />}></Route>
         <Route path='home' element={<ProtectRoute element={<Home />} />}/>
         <Route path='post' element={<ProtectRoute element={<Post />} />}/>

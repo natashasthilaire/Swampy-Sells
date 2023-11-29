@@ -78,6 +78,7 @@ mongoose.connect(process.env.MONGODB_URL, {
     });
     app.use('/api/item', itemRoutes);
     app.use('/api', registerRoutes);
+    app.use("/api/v1/product", itemRoutes);
     //Can add more routes here
     app.get('/api/auth', (req, res) => {
         if (req.isAuthenticated()) {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
-import NavbarComp from '../components/NavbarComp';
+import SearchInput from './SearchInput';
 
 const Header = () => {
   const { user } = useAuth();
@@ -15,7 +15,7 @@ const Header = () => {
     <div style={{display:"flex", flexDirection:"row"}} >
       <Link to='/home'><img className="home-logo" src="../swampysells-logo.png"></img></Link>
       <div className="inline-div">
-        <NavbarComp />
+      <SearchInput />
           <div className="item">
             <img src="../destination.png" style={{width:"15px", height:"20px", marginTop:"45px"}}></img>
             <span className="caption">{user.location}</span>

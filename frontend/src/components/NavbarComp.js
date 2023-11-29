@@ -1,16 +1,31 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 import Navbar from 'react-bootstrap/Navbar';
 
-export default class NavbarComp extends Component {
 
+
+export default class NavbarComp extends Component {
+  /*constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
+  */
+  state = { term: ''};
+
+  /*
   toggleClass() {
-    //const currentState = this.state.active;
-    //this.setState({ active: !currentState });
-    console.log('clicked');
-};
+   
+  };
+  */
+
+  onInputChange = (event) => {
+    this.setState({term:event.target.value})
+  };
 
   render() {
     return (
@@ -18,12 +33,12 @@ export default class NavbarComp extends Component {
       <Container fluid>
           <Form className="d-flex">
             <Form.Control style={{width:"400px"}}
-              type="search"
+              //type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success" onClick={this.toggleClass} style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF"}}>Search</Button>
+            <Button variant="outline-success" onClick={this.onInputChange} value={this.state.term} style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF"}}>Search</Button>
           </Form>
       </Container>
     </Navbar>
