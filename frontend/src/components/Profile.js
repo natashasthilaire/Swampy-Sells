@@ -40,7 +40,6 @@ export const Profile = (props) => {
   // get user posts
   useEffect(() => {
     const getListings = async () =>  {
-      console.log('User', user._id)
       try {
         const responseWithPosts = await axios.get(`http://localhost:5003/api/item/:id/userItems/${user._id}`);
         setListings(responseWithPosts.data)
@@ -117,7 +116,7 @@ export const Profile = (props) => {
               />
               <div className="identifiers">
                 <h1 className="student-name">Gator Student</h1>
-                {/*<h1>{user.firstName} {user.lastName}</h1>*/}
+                <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
                   {/*TODO(bndalichako): Remove constants*/}
                   <p>{user.postsCount} 23 items listed</p>
