@@ -1,129 +1,63 @@
-import { useContext } from 'react';
 import Header from '../Header';
 import { Conversation } from '../conversations/Conversation';
 import { Message } from '../message/Message';
 import "./Inbox.css";
-//import { useAuth } from '../../context/AuthProvider';
-
-/*
-import React, { useState, useEffect } from "react";
-import Header from "./Header"
-import io from "socket.io-client";
-import axios from 'axios';
+import {useAuth} from "../../context/AuthProvider"; 
+import axios from "axios"; 
+import React, {useState, useEffect} from "react";
 
 export const Inbox = () => {
 
-    const [message, setMessage] = useState(""); //so we can grab what users is typing on input
-    //const [currentMessage, setCurrentMessage] = useState([]);
-    const [messageReceived, setMessageReceived] = useState("");
-    const [users, setUserList] = useState([]);
-    const socket = io.connect('http://localhost:5003'); // Replace with your backend server URL
+    const [convsersations, setConversations] = useState([]); 
+    const [currentChat, setCurrentChat] = useState(null);
+    const [messages, setMessages] = useState([]); 
+    const [newMessage, setNewMessage] = useState(""); 
 
-    //useEffect is how we listen to messages
-    //this hook will be called when we recieve a message
+    const {user} = useAuth(); 
+
     useEffect(() => {
-        // Connect to the server and listen for incoming messages
-        socket.on('receive_message', (message) => {
-            //setMessages([...messages, message]);
-            setMessageReceived(message.content);
-        });
+        const getConversations = async () => {
 
-        //workaround for socketio: 
-        //emitting a message from frontend can only be emmitted to backend
-        //1. emit message to backend
-        //2. backend will listen to event emitted in frontend
-        //3. then emit data from backend to another event that is listening in the frontend
-        return () => {
-            socket.disconnect();
-        };
-    }, [socket]); //pass socket var inside dependents list in useEffect
+            try {
+                const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
+                console.log("getConversation data", res.data); 
+                setConversations(res.data); 
+            } 
+            catch (err){
+                console.log(err); 
+            }
+        }; 
+        getConversations(); 
+    }, [user._id]); 
 
-    //useEffect for getting users
-    // useEffect(async () => {
-    //     const response = await fetch('http://localhost:5003/api/user'); 
-    //     users = await response.json(); 
-    //     //fetch users from api
-    //     /*
-    //     axios.get('/api/user')
-    //     .then(response => {
-    //         setUserList(response.data); 
-    //     })
-    //     .catch(err => {
-    //         console.error('Error fetching users:', err); 
-    //     }); 
-    //     */
-// }, []); 
+    useEffect(() => {
+        const getMessages = async () =>{
+            try{
+            const res = await axios.get(`http://localhost:5003/api/messages/${currentChat._id}`); 
+            setMessages(res.data); 
+            } catch(err){
+                console.log(err); 
+            }
+        }; 
+        getMessages(); 
+    }, [currentChat]); 
 
-//we want to emit message here
-/*
-const messageSchema = new mongoose.Schema({
-    sender: String,
-    content: String,
-    timestamp: {
-        type: Date,
-        default: Date.now,
-    },
-});
+    const handleSubmit =  async (e) => {
+        e.preventDefault(); 
+        const message = {
+            sender: user._id, 
+            text: newMessage, 
+            conversationId: currentChat._id, 
+        }; 
 
-
-const sendMessage = () => {
-    if (message.trim() !== '') {
-        const date = new Date();
-        const messageObject = {
-            sender: 'User', // Replace with actual user identification
-            content: message,
-            timestamp: { date }
-        };
-        // Emit the message to the server
-        socket.emit('send_message', messageObject);
-        setMessage('');
-    }
-};
-
-
-return (
-    <div>
-        <Header />
-        <div>
-            <h1>Users:
-                <ul>
-                    {users.map(user => (
-                        <li key={user._id}>
-                            <h1> Name: {user.firstName}</h1>
-                        </li>
-                    ))}
-                </ul>
-            </h1>
-        </div>
-        <h1>Chat</h1>
-        <div>
-            {/* {messages.map((message, index) => (
-                    <div key={index}>
-                        <strong>{message.sender}: </strong>
-                        {message.content}
-                    </div>
-                ))} }
-        </div>
-        <div>
-            <input
-                type="text"
-                value={message}
-                onChange={(event) => setMessage(event.target.value)}
-            />
-            <button onClick={sendMessage}>Send</button>
-            <h1>Message: </h1> {messageReceived}
-        </div>
-    </div>
-);
-};
-
-*/
-
-
-export const Inbox = () => {
-
-    //const {user} = useContext(useAuth); 
-    //console.log(user); 
+        try {
+            const res = await axios.post("http://localhost:5003/api/messages", message); 
+            setMessages([...messages, res.data]); 
+        }
+        catch (error) {
+            console.log(error); 
+        }
+    }; 
 
     return (
         <div>
@@ -131,23 +65,32 @@ export const Inbox = () => {
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
-                        <input placeholder="Search Chat" className="chatMenuInput"></input>
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
+                        <input placeholder="Search Chat" className="chatMenuInput"/>
+                        {convsersations.map((c) =>(
+                            <div onClick={() => setCurrentChat(c)}>
+                        <Conversation conversation={c} currentUser={user} />
+                        </div>
+                        ))}
                     </div>
                 </div>
                 <div className="chatBox"> 
                 <div className="chatBoxWrapper">
+                    {
+                        currentChat ?
+                        <>
                     <div className="chatBoxTop">
-                    <Message/>
-                    <Message own={true}/>
-                    <Message/>
+                        {messages.map(m=>(
+                            <Message message={m} own={m.sender === user._id}/>
+                        ))}
                     </div>
                     <div className="chatBoxBottom">
-                        <textarea className="chatMessageInput" placeholder="write something..."></textarea>
-                        <button className="chatSubmitButton">Send</button>
-                    </div>
+                        <textarea className="chatMessageInput" 
+                        placeholder="write something..."
+                        onChange={(e)=>setNewMessage(e.target.value)}
+                        value={newMessage}>     
+                        </textarea>
+                        <button className="chatSubmitButton" onClick={handleSubmit}>Send</button>
+                    </div></> : <span className="noConvoText">open conversation to start talking</span> }
                 </div>
                 </div>
     
@@ -156,4 +99,3 @@ export const Inbox = () => {
     )
 
 }
-

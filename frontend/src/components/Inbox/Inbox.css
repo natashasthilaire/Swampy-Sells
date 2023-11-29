@@ -1,3 +1,4 @@
+
 .messenger{
     height: calc(100vh - 70px);
     display: flex; 
@@ -20,6 +21,7 @@
     display: flex; 
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 .chatBoxBottom{
     margin-top: 5px; 
@@ -52,4 +54,10 @@
 .chatMenuWrapper, .chatBoxWrapper, .chatOnlineWrapper {
     padding: 10px; 
     height: 100%; 
+}
+.noConvoText{
+    position: absolute;
+    top: 10%;
+    font-size: 30px; 
+    color: gray;
 }
