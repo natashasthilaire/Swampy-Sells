@@ -8,7 +8,6 @@ export const Conversation = ({conversation, currentUser}) => {
 
     useEffect(() => {
         //we are looking for friend !==
-        console.log(conversation.members); 
         const friendId = conversation.members.find((m) => m !== currentUser._id); 
         //get user info for friends
         const getUser = async() =>{

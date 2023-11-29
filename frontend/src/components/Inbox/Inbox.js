@@ -4,16 +4,26 @@ import { Message } from '../message/Message';
 import "./Inbox.css";
 import {useAuth} from "../../context/AuthProvider"; 
 import axios from "axios"; 
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
+import {io} from "socket.io-client"; 
 
 export const Inbox = () => {
 
     const [convsersations, setConversations] = useState([]); 
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]); 
-    const [newMessage, setNewMessage] = useState(""); 
-
+    const [newMessage, setNewMessage] = useState(null); 
+    const socket = useRef(io("ws://localhost:8900")); 
+    const scrollRef = useRef(); 
     const {user} = useAuth(); 
+
+    useEffect(() =>{
+        socket.current.emit("addUser", user._id); 
+        socket.current.on("getUsers", (users) => {
+            console.log(users); 
+        }); 
+    }, [user])
+
 
     useEffect(() => {
         const getConversations = async () => {
@@ -53,11 +63,17 @@ export const Inbox = () => {
         try {
             const res = await axios.post("http://localhost:5003/api/messages", message); 
             setMessages([...messages, res.data]); 
+            setNewMessage(""); 
         }
         catch (error) {
             console.log(error); 
         }
     }; 
+
+    //for scrolling: 
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({behavior: "smooth"}); 
+    },[messages]);  //dependecy is messsages bc when messages change --> use effect will be fired
 
     return (
         <div>
@@ -80,7 +96,9 @@ export const Inbox = () => {
                         <>
                     <div className="chatBoxTop">
                         {messages.map(m=>(
+                            <div ref = {scrollRef}>
                             <Message message={m} own={m.sender === user._id}/>
+                            </div>
                         ))}
                     </div>
                     <div className="chatBoxBottom">
