@@ -44,6 +44,22 @@ export const AuthProvider = ({ children }) => {
           }
       }
 
+      const logout = async () => {
+        try {
+          const response = await fetch('http://localhost:5003/api/logout', {
+            method: 'POST',
+            credentials: 'include',
+          });
+    
+          if (response.status === 200) {
+            setAuthenticated(false);
+            setUser(null);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
       const loginWithPromise = (email, password) => {
         return new Promise(async (resolve, reject) => {
           try {
@@ -55,9 +71,8 @@ export const AuthProvider = ({ children }) => {
         });
       };
 
-    
     return (
-        <AuthContext.Provider value={{ authenticated, user, login: loginWithPromise}}>
+        <AuthContext.Provider value={{ authenticated, user, login: loginWithPromise, logout}}>
         {children}
         </AuthContext.Provider>
     )

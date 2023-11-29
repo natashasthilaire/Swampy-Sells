@@ -6,13 +6,14 @@ import { useParams } from "react-router-dom";
 import { bookmarks, posts } from "../DummyData"
 import "../styles/Profile.css";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useAuth } from '../context/AuthProvider';
 import { Buffer } from 'buffer';
+import { useNavigate} from "react-router-dom";
+
 
 // TODO(bllndalichako): Replace dummy data with real data
 export const Profile = (props) => {
@@ -22,6 +23,9 @@ export const Profile = (props) => {
   const { id } = useParams();
   // const [toggle, setToggle] = useState("posts");
   const [value, setValue] = React.useState(0);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -85,6 +89,18 @@ export const Profile = (props) => {
     };
   }
 
+  const handleLogout = async (event) => {
+    console.log('Logout button clicked');
+    try {
+      event.preventDefault();
+      await logout();
+      console.log('Logout successful');
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return <div>
     {/* TODO(bndalichako): Remove dummy data */}
     <Header />
@@ -128,7 +144,7 @@ export const Profile = (props) => {
             </div>
             <div className="profile-links">
               {/*TODO(bndalichako): Add logout functionality */}
-              <Link to='/'><button className="logout-button" style={{backgroundColor:"lightgray", color:"blue"}}>Log Out</button></Link>
+              <button className="logout-button" onClick={handleLogout}>Log Out</button>
             </div>
           </div>
           <div className="bottom-info">
