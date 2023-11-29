@@ -18,11 +18,50 @@
   flex-direction: column;
 }
 
+.home-img {
+  width: 150px;
+  height: 200px;
+}
+
+.items-list {
+  flex-direction: row;
+  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  
+}
+
+.item-details {
+  justify-self: center;
+  .bookmark {
+    display: none;
+  }
+}
+
+.item-details:hover {
+  .bookmark {
+    display: grid;
+    background-color: gainsboro;
+  }
+}
+
 .auth-form-container {
   padding: 5rem;
   border-radius: 10px;
   align-items: center;
 }
+
+.bookmark {
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bookmark:hover{
+  background-color:gainsboro
+}
+
 
 label {
   text-align: left;

@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useAuth } from "../context/AuthProvider";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
 
 export const Post = (props) => {
     const { user } = useAuth();
@@ -108,6 +108,8 @@ export const Post = (props) => {
                     <Form.Control value={description} onChange={(event) => setDescription(event.target.value)} 
                         as="textarea" rows={3} maxLength={150} placeholder="Description" required/>
                 </Form.Group>
+                <input type="hidden" id="location" name="location" value={user.location} /*onSubmit={setLocation(user.location)}*/ />
+                {console.log('this is user location: '+user.location)}
                 <Button type="submit">Post Listing</Button>
             </Form>
         </div>

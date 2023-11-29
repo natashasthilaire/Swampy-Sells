@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
-import NavbarComp from '../components/NavbarComp';
+import SearchInput from './SearchInput';
 
 const Header = () => {
   const { user } = useAuth();
@@ -15,7 +15,7 @@ const Header = () => {
     <div style={{display:"flex", flexDirection:"row"}} >
       <Link to='/home'><img className="home-logo" src="../swampysells-logo.png"></img></Link>
       <div className="inline-div">
-        <NavbarComp />
+      <SearchInput />
           <div className="item">
             <img src="../destination.png" style={{width:"15px", height:"20px", marginTop:"45px"}}></img>
             <span className="caption">{user.location}</span>
@@ -43,12 +43,13 @@ const Header = () => {
       </div>
     </div>
     <div style={{whiteSpace:"pre-wrap", display:"flex", flexDirection:"row", justifyContent:"space-evenly" }}> 
-      <p><b><a href='/textbooks' style={{color:"black"}}>Textbooks{" "}</a></b></p>
-      <p><b><a href='/clothes' style={{color:"black"}}>Clothes{" "}</a></b></p>
-      <p><b><a href='/decor' style={{color:"black"}}>General Decor{" "}</a></b></p>
-      <p><b><a href='/furniture' style={{color:"black"}}>Furniture{" "}</a></b></p>
-      <p><b><a href='/appliances' style={{color:"black"}}>Appliances{" "}</a></b></p>
-      <p><b><a href='/tickets' style={{color:"black"}}>Tickets{" "}</a></b></p>
+      <p><b><Link to='/textbooks' style={{color:"black"}}>Textbooks{" "}</Link></b></p>
+      <p><b><Link to='/clothes' style={{color:"black"}}>Clothes{" "}</Link></b></p>
+      <p><b><Link to='/decor' style={{color:"black"}}>General Decor{" "}</Link></b></p>
+      <p><b><Link to='/furniture' style={{color:"black"}}>Furniture{" "}</Link></b></p>
+      <p><b><Link to='/appliances' style={{color:"black"}}>Appliances{" "}</Link></b></p>
+      <p><b><Link to='/tickets' style={{color:"black"}}>Tickets{" "}</Link></b></p>
+      <p><b><Link to='/other' style={{color:"black"}}>Other{" "}</Link></b></p>
     </div>
 
     </>
