@@ -8,8 +8,9 @@ const router = express.Router();
 
 router.get("/:userId", async(req, res) => {
     const userId = req.params.userId; 
+    console.log(userId); 
     try {
-        const user = await User.findbyId(userId);
+        const user = await User.findById(userId);
         res.status(200).json(user); 
     } catch(error) {
         console.error(error)
