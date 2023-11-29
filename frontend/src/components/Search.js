@@ -9,7 +9,7 @@ const Search = () => {
   return (
     <>
       <Header />
-      <h1>Search Results</h1>
+      <h3>Search Results</h3>
         <h6>
           {values?.results.length < 1  ? "No Products Found" : `Found ${values?.results.length}`}
         </h6>
