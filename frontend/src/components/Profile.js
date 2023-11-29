@@ -9,13 +9,19 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { useAuth } from '../context/AuthProvider';
 import { Buffer } from 'buffer';
 import { useNavigate} from "react-router-dom";
 
 
-// TODO(bllndalichako): Replace dummy data with real data
+// TODO(bllndalichako): Marking an item sold and deleting it.
+// TODO(bllndalichako): Mark item sold
+// TODO(bllndalichako): Delete item
+// TODO(bllndalichako): Item pop up when user clicks on item
+// TODO(bllndalichako): User upload profile picture
+// TODO(bllndalichako): Bookmarking.
 export const Profile = (props) => {
   const { user } = useAuth(); // get the current user
   const [listings, setListings] = useState(null)
@@ -30,17 +36,6 @@ export const Profile = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:5555/users/${id}`)
-  //     .then((res) => {
-  //       setUser(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   // get user posts
   useEffect(() => {
@@ -132,13 +127,12 @@ export const Profile = (props) => {
                 alt=""
               />
               <div className="identifiers">
-                <h1 className="student-name">Gator Student</h1>
                 <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
-                  {/*TODO(bndalichako): Remove constants*/}
-                  <p>{user.postsCount} 23 items listed</p>
+                  <p>{listings? listings.length : 0} items listed</p>
+                  {/*TODO(bndalichako): Backend logic for determining vals below*/}
                   <p>{user.salesCount} 5 items sold</p>
-                  <p>{user.purchasesCount} 9 items purchased</p>
+                  <p>{user.purchasesCount} 9 items bookmarked</p>
                 </div>
               </div>
             </div>
@@ -157,16 +151,15 @@ export const Profile = (props) => {
             <CustomTabPanel value={value} index={0} className="posts">
               <div className="posts-list">
                 {/*{user.bookmarks?.map((post) => (*/}
-                {posts?.map((post) => (
+                {listings?.map((post) => (
                   <div className="postItem" key={post.id}>
                     <div className="post">
                       <img className="post-img"
-                        src={post.image}
-                        alt=""
+                        src={`data:image/jpeg;base64,${Buffer.from(post.image).toString('base64')}`} alt={'Not Available'}
                       />
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
-                        <p className="post-price">{post.price}</p>
+                        <p className="post-price">${post.price}</p>
                       </div>
 
                     </div>
