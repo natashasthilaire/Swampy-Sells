@@ -15,6 +15,7 @@ import { useAuth } from '../context/AuthProvider';
 import { Buffer } from 'buffer';
 import { useNavigate} from "react-router-dom";
 import Stack from '@mui/material/Stack';
+import { deepOrange } from '@mui/material/colors';
 
 
 // TODO(bllndalichako): Marking an item sold and deleting from homepage.
@@ -103,7 +104,7 @@ export const Profile = (props) => {
         <div className="info">
           <div className="top-info">
             <div className="profile-info">
-              <Avatar className="profile-img" sx={{fontSize: "4.5rem"}}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
+              <Avatar className="profile-img" sx={{bgcolor: deepOrange[300], fontSize: "4.5rem"}}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
               <div className="identifiers">
                 <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
