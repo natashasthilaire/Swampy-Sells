@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import { SearchProvider } from './context/Search';
 import { AuthProvider } from './context/AuthProvider';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,11 +16,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <SearchProvider>
         <App />
         <ToastContainer
           position="top-center"
           autoClose={3000}
         /> 
+        </SearchProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

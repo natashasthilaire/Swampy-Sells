@@ -18,6 +18,7 @@ const User = require('./models/User');
 
 
 const initializePassport = require('./auth/passportStrategy');
+const Item = require('./models/Item');
 
 //TODO Add ROUTES!
 
@@ -77,6 +78,7 @@ mongoose.connect(process.env.MONGODB_URL, {
     });
     app.use('/api/item', itemRoutes);
     app.use('/api', registerRoutes);
+    app.use("/api/v1/product", itemRoutes);
     //Can add more routes here
     app.get('/api/auth', (req, res) => {
         if (req.isAuthenticated()) {
@@ -86,10 +88,11 @@ mongoose.connect(process.env.MONGODB_URL, {
             res.status(401).json({ authenticated: false, user: null });
         }
     })
+
     app.post('/api/login', passport.authenticate('local'), (req, res) => {
         // If the code reaches here, it means authentication was successful
         res.status(200).json({ message: 'Login successful' });
-      });
+    });
 
     app.post("/forgot", (req, res) => {
         const {email} = req.body;
@@ -147,6 +150,54 @@ mongoose.connect(process.env.MONGODB_URL, {
             }
         })
     });
+
+    app.get('/getItems', (req, res) => {
+        Item.find()
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getTextbooks', (req, res) => {
+        Item.find({category:"Textbooks"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getClothes', (req, res) => {
+        Item.find({category:"Clothes"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getGeneralDecor', (req, res) => {
+        Item.find({category:"General Decor"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getFurniture', (req, res) => {
+        Item.find({category:"Furniture"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getAppliances', (req, res) => {
+        Item.find({category:"Appliances"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getTickets', (req, res) => {
+        Item.find({category:"Tickets"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
+
+    app.get('/getOther', (req, res) => {
+        Item.find({category:"Other"})
+        .then(items => res.json(items))
+        .catch(err => res.json(err))
+    })
 
     app.listen(PORT, () => {
         console.log(`Server listening on port ${PORT}`)
