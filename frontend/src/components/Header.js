@@ -22,6 +22,10 @@ const Header = () => {
           </div>
           <div className="inline-div" style={{marginTop:"40px", marginLeft: "240px"}}>
               <div style={{justifyContent:"center", textAlign:"center"}}>
+                <img className="navbar-icons" src="../home.png" style={{width:"28px"}}></img>
+                <Link to='/home'><span className="caption">Home</span></Link>
+              </div>
+              <div style={{justifyContent:"center", textAlign:"center"}}>
                 <img className="navbar-icons" src="../add_post.png" style={{width:"30px"}}></img>
                 <Link to='/post'><span className="caption">Post a Listing</span></Link>
               </div>
@@ -29,12 +33,6 @@ const Header = () => {
                 <img className="navbar-icons" src="../inbox.png" style={{width:"30px"}}></img>
                 <Link to='/inbox'><span className="caption">Inbox</span></Link>
               </div>
-
-              <div style={{justifyContent:"center", textAlign:"center"}}>
-                <img className="navbar-icons" src="../history.png" style={{width:"28px"}}></img>
-                <Link to='/history'><span className="caption">History</span></Link>
-              </div>
-
               <div style={{justifyContent:"center", textAlign:"center"}}>
                 <img className="navbar-icons" src="../profile.png" style={{width:"30px"}}></img>
                 <Link to='/profile'><span className="caption">Profile</span></Link>

@@ -7,7 +7,6 @@ import { Forgot } from './components/Forgot';
 import { Home }  from './components/Home';
 import { Post } from './components/Post';
 import { Reset } from './components/Reset';
-import { History } from './components/History';
 import { Inbox } from './components/Inbox';
 import { Profile } from './components/Profile';
 import { useAuth } from './context/AuthProvider';
@@ -42,7 +41,6 @@ function App() {
         <Route path='home' element={<ProtectRoute element={<Home />} />}/>
         <Route path='post' element={<ProtectRoute element={<Post />} />}/>
         <Route path='inbox' element={<ProtectRoute element={<Inbox />}/>}/>
-        <Route path='history' element={<ProtectRoute element={<History />}/>}/>
         <Route path='profile' element={<ProtectRoute element={<Profile />}/>}/>
         <Route path='forgot' element={<Forgot />}></Route>
         <Route path='/reset/:id/:token' element={<Reset />}></Route>
