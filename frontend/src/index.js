@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthProvider';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ToastContainer } from 'react-toastify';
+import { ItemProvider } from './context/ItemProvider'; 
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -17,7 +18,9 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <SearchProvider>
-        <App />
+          <ItemProvider>
+            <App />
+          </ItemProvider>
         <ToastContainer
           position="top-center"
           autoClose={3000}
