@@ -18,6 +18,7 @@ import { Furniture } from './components/Furniture';
 import { Tickets } from './components/Tickets';
 import { Other } from './components/Other';
 import Search from './components/Search';
+import { ViewItem } from './components/ViewItem';
 
 function ProtectRoute({ element, ...rest }) {
   const  { authenticated } = useAuth();
@@ -39,6 +40,7 @@ function App() {
         <Route path='/search' element={<ProtectRoute element={<Search />}/>}/>
         <Route path='register' element={<Register />}></Route>
         <Route path='home' element={<ProtectRoute element={<Home />} />}/>
+        <Route path='item/:id' element={<ProtectRoute element={<ViewItem />} />} />
         <Route path='post' element={<ProtectRoute element={<Post />} />}/>
         <Route path='inbox' element={<ProtectRoute element={<Inbox />}/>}/>
         <Route path='profile' element={<ProtectRoute element={<Profile />}/>}/>
