@@ -8,11 +8,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 //accessing seller ID; 
 import { useItemDetails } from '../../context/ItemProvider';
+import { useLocation } from 'react-router-dom';
+import { ChatHeader } from '../chatHeader/ChatHeader';
 
 export const Inbox = () => {
 
+    const {state} = useLocation(); //to get object passed in navigate from ViewItem
     const [conversations, setConversations] = useState([]);
-    const [currentChat, setCurrentChat] = useState(null); //currentChat holds data bout currentChat
+    const [currentChat, setCurrentChat] = useState(state); //currentChat holds data bout currentChat
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState(null); //new message that user types
     const [arrivalMessage, setArrivalMessage] = useState(null); //new incoming message from other user
@@ -21,6 +24,8 @@ export const Inbox = () => {
     const { user } = useAuth();
     //seller ID: 
     const { itemData } = useItemDetails();
+    console.log("currentChat", currentChat); 
+    //const [receiver, setReceiver] = useState(null);
 
 
     /*
@@ -60,9 +65,7 @@ export const Inbox = () => {
         const getConversations = async () => {
             try {
                 const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
-                console.log("from response", res.data);
                 setConversations(res.data);
-                console.log("conversations after getting them: ", conversations)
             }
             catch (err) {
                 console.log(err);
@@ -118,13 +121,16 @@ export const Inbox = () => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);  //dependecy is messsages bc when messages change --> use effect will be fired
 
+    //get reciever Name & information
+    //                        <input placeholder="Search Chat" className="chatMenuInput" />
+
+
     return (
         <div>
             <Header />
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
-                        <input placeholder="Search Chat" className="chatMenuInput" />
                         {conversations.map((c) => (
                             <div onClick={() => setCurrentChat(c)}>
                                 <Conversation conversation={c} currentUser={user} />
@@ -137,6 +143,9 @@ export const Inbox = () => {
                         {
                             currentChat ?
                                 <>
+                                <div className="chatBoxTopName">
+                                            <ChatHeader conversation={currentChat} currentUser={user}/>
+                                        </div>
                                     <div className="chatBoxTop">
                                         {messages.map(m => (
                                             <div ref={scrollRef}>

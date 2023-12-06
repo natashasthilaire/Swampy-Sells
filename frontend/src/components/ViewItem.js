@@ -67,10 +67,14 @@ export const ViewItem = () => {
             console.log(err);
         }
 
+        let firstConversation = null; 
         //check if conversation is already present with the seller
         let present = false; 
         conversations.map((c) => {
-            if(c.members.includes(details.sellerId)) {present = true;} 
+            if(c.members.includes(details.sellerId)) {
+                present = true;
+                firstConversation = c; 
+            } 
         }); 
         //add if not present
         if(present === false)
@@ -82,10 +86,23 @@ export const ViewItem = () => {
             catch(err) {
                 console.log(err); 
             }
+            //then get conversation so we can set initial state to conversation with the new user that was added 
+            try {
+                const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
+                console.log("ViewItem: from response", res.data);
+                conversations = res.data; 
+            }
+            catch (err) {
+                console.log(err);
+            }
+            conversations.map((c) => {
+                if(c.members.includes(details.sellerId)) {
+                    firstConversation = c; 
+                } 
+            });
         }
-        
-        navigate('/inbox');
-
+        console.log("firstConversation", firstConversation); 
+        navigate('/inbox', {state: firstConversation});
     }
 
 
