@@ -1,9 +1,10 @@
 import Header from "./Header";
 import React from "react";
+import { useQuery} from 'react-query'
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { bookmarks, posts } from "../DummyData"
+// import { bookmarks } from "../DummyData"
 import "../styles/Profile.css";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -33,6 +34,15 @@ export const Profile = (props) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+  const query = useQuery({
+    queryKey: ['getItems'],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        'http://localhost:5003/getItems'
+      )
+      return data
+    },
+  })
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -110,8 +120,8 @@ export const Profile = (props) => {
                 <div className="activity">
                   <p>{listings? listings.length : 0} items listed</p>
                   {/*TODO(bndalichako): Backend logic for determining vals below*/}
-                  <p>{user.salesCount} 5 items sold</p>
-                  <p>{user.purchasesCount} 9 items bookmarked</p>
+                  <p>{user.salesCount} 0 items sold</p>
+                  <p>{user.purchasesCount} 2 items bookmarked</p>
                 </div>
               </div>
             </div>
@@ -148,7 +158,7 @@ export const Profile = (props) => {
             <CustomTabPanel value={value} index={1} className="bookmarks">
               <div className="bookmarks-list">
                 {/*{user.bookmarks?.map((post) => (*/}
-                {bookmarks?.map((post) => (
+                {query.isFetched && query.data?.slice(1,3).map((post) => (
                   <div className="bookmark" key={post.id}>
                     <div className="post">
                       <img className="post-img"
@@ -157,7 +167,7 @@ export const Profile = (props) => {
                       />
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
-                        <p className="post-price">{post.price}</p>
+                        <p className="post-price">${post.price}</p>
                       </div>
 
                     </div>
