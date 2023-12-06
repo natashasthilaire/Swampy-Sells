@@ -75,4 +75,37 @@ const getUserItems = async(req, res) => {
     }
 }
 
-module.exports = { upload, postItem,  getItem, comment, getUserItems};
+const unbookmarkItem = async(req, res) => {
+    const itemId = req.params.itemId;
+    const userId = req.body.userId;
+    try {
+        const item = await Item.findById(itemId).explain("executionStats");
+
+        if (item.bookmarkedBy.includes(userId)) {
+          item.bookmarkedBy.pull(userId);
+          await item.save();
+          res.status(200).json(item);  
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Could not unbookmark item');
+    }
+}
+
+const bookmarkItem = async(req, res) => {
+    const itemId = req.params.itemId;
+    const userId = req.body.userId;
+    try {
+        const item = await Item.findById(itemId);
+
+        if (!item.bookmarkedBy.includes(userId)) {
+          item.bookmarkedBy.push(userId);
+          await item.save();
+          res.status(200).json(item);        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Could not bookmark item');
+    }
+}
+
+module.exports = { upload, postItem,  getItem, comment, getUserItems, unbookmarkItem, bookmarkItem};
