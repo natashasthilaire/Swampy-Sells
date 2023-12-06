@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from "./Header";
 import { Buffer } from 'buffer';
-import { useItemDetails } from '../context/ItemProvider';
+//import { useItemDetails } from '../context/ItemProvider';
 import axios from "axios"
 import { useAuth } from "../context/AuthProvider";
 
@@ -12,7 +12,7 @@ import '../styles/ViewItem.css';
 export const ViewItem = () => {
     const [details, setDetails] = useState({});
     const { id } = useParams();
-    const { itemDetails } = useItemDetails();
+    //const { itemDetails } = useItemDetails();
     const navigate = useNavigate();
     const { user } = useAuth();
 
@@ -43,14 +43,8 @@ export const ViewItem = () => {
         retrieveItem();
     }, [id]);
 
-    // const sleep = (time) => {
-    //     return new Promise(resolve => setTimeout(resolve, time))
-    // }
     const handleMessageButton = async () => {
-        console.log(details.sellerId);
-        // await sleep(2000);
-        itemDetails({ sellerId: details.sellerId })
-        console.log(details.sellerId);
+       // itemDetails({ sellerId: details.sellerId })
 
         //get conversations
         var conversations = []; 

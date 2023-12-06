@@ -6,8 +6,8 @@ import { useAuth } from "../../context/AuthProvider";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
-//accessing seller ID; 
-import { useItemDetails } from '../../context/ItemProvider';
+//accessing seller ID 
+//import { useItemDetails } from '../../context/ItemProvider';
 import { useLocation } from 'react-router-dom';
 import { ChatHeader } from '../chatHeader/ChatHeader';
 
@@ -23,7 +23,7 @@ export const Inbox = () => {
     const scrollRef = useRef();
     const { user } = useAuth();
     //seller ID: 
-    const { itemData } = useItemDetails();
+   // const { itemData } = useItemDetails();
     console.log("currentChat", currentChat); 
     //const [receiver, setReceiver] = useState(null);
 

@@ -7,7 +7,6 @@ import { Forgot } from './components/Forgot';
 import { Home }  from './components/Home';
 import { Post } from './components/Post'; 
 import { Reset } from './components/Reset';
-import { History } from './components/History';
 import { Inbox } from './components/Inbox/Inbox';
 import { Profile } from './components/Profile';
 import { useAuth } from './context/AuthProvider';
