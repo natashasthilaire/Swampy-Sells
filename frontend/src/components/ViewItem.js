@@ -21,13 +21,13 @@ export const ViewItem = () => {
             try {
                 const response = await fetch(`http://localhost:5003/api/item/${id}`)
                 const responseData = await response.json();
-                const base64 = Buffer.from(responseData.image.data).toString('base64');
 
                 setDetails({
                     title: responseData.title,
                     price: responseData.price,
                     description: responseData.description,
-                    image: `data:image/png;base64, ${base64}`,
+                    image: responseData.image,
+                    condition: responseData.condition,
                     sellerId: responseData.user
                     // comments: responseData.comments
                 });
