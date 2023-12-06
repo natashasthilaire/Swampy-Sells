@@ -5,8 +5,9 @@ import { Register } from './components/Register';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Forgot } from './components/Forgot';
 import { Home }  from './components/Home';
-import { Post } from './components/Post';
+import { Post } from './components/Post'; 
 import { Reset } from './components/Reset';
+import {  QueryClient, QueryClientProvider} from 'react-query';
 import { Inbox } from './components/Inbox';
 import { Profile } from './components/Profile';
 import { useAuth } from './context/AuthProvider';
@@ -22,6 +23,9 @@ import { ViewItem } from './components/ViewItem';
 
 function ProtectRoute({ element, ...rest }) {
   const  { authenticated } = useAuth();
+  
+
+  
   console.log('authenticated in ProtectRoute: ', authenticated);
 
   return authenticated ? (
@@ -34,6 +38,7 @@ function ProtectRoute({ element, ...rest }) {
 function App() {
   return (
     <>
+
     <div className="App">
       <Routes>
         <Route path='/' element={<Login />}></Route>
@@ -55,6 +60,7 @@ function App() {
         <Route path='other' element={<ProtectRoute element={<Other />}/>}/>
       </Routes>
     </div>
+
     </>
   );
 
