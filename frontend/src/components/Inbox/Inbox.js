@@ -5,6 +5,7 @@ import "./Inbox.css";
 import {useAuth} from "../../context/AuthProvider"; 
 import axios from "axios"; 
 import React, {useState, useEffect, useRef} from "react";
+import { useItemDetails } from '../../context/ItemProvider';
 import {io} from "socket.io-client"; 
 
 export const Inbox = () => {
@@ -16,7 +17,9 @@ export const Inbox = () => {
     const [arrivalMessage, setArrivalMessage] = useState(null); 
     const socket = useRef(); 
     const scrollRef = useRef(); 
-    const {user} = useAuth(); 
+    const {user} = useAuth();
+    const { itemData } = useItemDetails(); 
+    console.log(itemData.sellerId);
 
 
     useEffect(() => {

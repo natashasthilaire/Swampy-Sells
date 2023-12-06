@@ -2,21 +2,28 @@ import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import ItemDetails from './ItemDetails'
 import axios from 'axios'
+import { useQuery } from 'react-query';
 
 export const Home = () => {
-  const [items, setItems] = useState([]);
+  const query = useQuery({
+    queryKey: ['getItems'],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        'http://localhost:5003/getItems'
+      )
+      return data
+    },
+  })
 
-  useEffect(() => {
-    axios.get('http://localhost:5003/getItems')
-    .then(items => setItems(items.data))
-    .catch(err => console.log(err))
-  }, [])
+  if (query.isLoading) {
+    return "Loading ... "
+  }
 
   return (
     <>
     <Header /> 
     <div className='items-list'>
-      {items && items.map((item) => (
+      {query.isFetched && query.data.map((item) => (
        <ItemDetails key={item._id} item={item}/>
       ))}
     </div>

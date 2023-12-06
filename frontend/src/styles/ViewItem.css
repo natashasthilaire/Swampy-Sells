@@ -2,26 +2,17 @@
 .view-item {
     display: flex;
     margin-top: 10px;
-    /* align-items: center; */
     margin-left: 150px;
     
   }
   
-  /* .item-image {
-    
-    /* text-align: left; */
-  /*} */
-  
   .item-image-container  img {
-    /* max-width: 60%; */
-    /* height: auto; */
     text-align: left;
     width: 450px;
     height: 600px;
   }
   
   .item-details {
-    /* text-align: right; */
     
     padding: 0px;
   }
@@ -45,7 +36,6 @@
 
   .item-description-container {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     margin-top: -10px;
   }
@@ -56,9 +46,7 @@
     /* color: #555; */
   }
   .item-description-details {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
+   
     margin-left: 5px
   }
 
