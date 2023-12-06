@@ -133,7 +133,7 @@ export const Profile = (props) => {
                   <div className="postItem" key={post.id}>
                     <div className="post">
                       <img className="post-img"
-                        src={`data:image/jpeg;base64,${Buffer.from(post.image).toString('base64')}`} alt={'Not Available'}
+                        src={post.image} alt={'Not Available'}
                       />
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
