@@ -5,7 +5,7 @@ import { Register } from './components/Register';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Forgot } from './components/Forgot';
 import { Home }  from './components/Home';
-import { Post } from './components/Post';
+import { Post } from './components/Post'; 
 import { Reset } from './components/Reset';
 import { Inbox } from './components/Inbox';
 import { Profile } from './components/Profile';
@@ -19,9 +19,15 @@ import { Tickets } from './components/Tickets';
 import { Other } from './components/Other';
 import Search from './components/Search';
 import { ViewItem } from './components/ViewItem';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function ProtectRoute({ element, ...rest }) {
   const  { authenticated } = useAuth();
+  
+
+  
   console.log('authenticated in ProtectRoute: ', authenticated);
 
   return authenticated ? (
@@ -34,6 +40,7 @@ function ProtectRoute({ element, ...rest }) {
 function App() {
   return (
     <>
+    <QueryClientProvider client={queryClient} >
     <div className="App">
       <Routes>
         <Route path='/' element={<Login />}></Route>
@@ -55,6 +62,7 @@ function App() {
         <Route path='other' element={<ProtectRoute element={<Other />}/>}/>
       </Routes>
     </div>
+    </QueryClientProvider>
     </>
   );
 

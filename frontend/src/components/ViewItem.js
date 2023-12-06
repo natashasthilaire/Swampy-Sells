@@ -26,11 +26,8 @@ export const ViewItem = () => {
                     condition: responseData.condition,
                     sellerId: responseData.user
                     // comments: responseData.comments
+                    
                 });
-                console.log(responseData.image)
-                console.log(responseData.image.data);
-
-
 
         } catch (error) {
             console.error('Error with fetching in useEffect', error);
@@ -39,16 +36,8 @@ export const ViewItem = () => {
     retrieveItem();
 }, [id]);
 
-    // const sleep = (time) => {
-    //     return new Promise(resolve => setTimeout(resolve, time))
-    // }
-
     const handleMessageButton = async() => {
-        console.log(details.sellerId);
-        // await sleep(2000);
-        //itemDetails({ sellerId: details.sellerId})
         navigate('/inbox');
-
     }
 
 
@@ -62,24 +51,24 @@ return (
         </div>
         <div className="item-details">
             <div className="details">
-                
                 <h2 className='item-title'>{details.title}</h2>
                 <p className='item-price'>${details.price}</p>
                 <p className='item-condition'>Condition: {details.condition}</p>
                 <div className='item-description-container'>
+                <div style={{display:"flex"}}>
                 <p className='item-description'>Description:  </p>
-                <div className='item-description-details'>{ details.description}</div>  
+                <div className='item-description-details'>{details.description}</div>  
+                </div>
                 </div>
                 <Button variant="outline-success" 
-                    style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF"}}
+                    style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF", width:"150px", height:"58px", fontSize:"30px", justifyContent:"center"}}
                     onClick={handleMessageButton}>
                     Message
                 </Button>
 
             </div>
         </div>
-        {/* <Button variant="outline-success" style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF"}}>Search</Button> */}
-    </div>
+        </div>
     </div>
 
     
