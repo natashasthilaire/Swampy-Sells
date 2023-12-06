@@ -20,7 +20,7 @@ export const Inbox = () => {
     const scrollRef = useRef();
     const { user } = useAuth();
     //seller ID: 
-    const { itemData } = useItemDetails(); 
+    const { itemData } = useItemDetails();
 
 
     /*
@@ -51,67 +51,16 @@ export const Inbox = () => {
     }, [user]); 
     */
 
-
-    const addConversation = async () => {
-        const newConvo  = {
-            "senderId": user._id,
-            "receiverId": itemData.sellerId,
-        }
-        try {
-            console.log("newConvo data: ", newConvo);
-            const res = await axios.post("http://localhost:5003/api/conversations", newConvo);
-           // setConversations([])
-        }
-        catch (err) {
-            console.log(err);
-        }   
-
-    }; 
-    //add conversation based on seller information
     useEffect(() => {
-
-        //find out if there is already a conversation with sender
-        const getConversations = async () => {
-            try {
-                const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
-                console.log("getConversation data", res.data);
-                setConversations(res.data);
-                console.log("conversations after getting them in seller convo update: ", conversations)
-            }
-            catch (err) {
-                console.log(err);
-            }
-        };
-        //getConversations(); 
-        let present = false; 
-        console.log("itemData.sellerId", itemData?.sellerId); 
-        console.log("conversations: ", conversations);
-        conversations.map((c) => {
-            if((itemData?.sellerId !== undefined && itemData?.sellerId !== null) && c.members.includes(itemData?.sellerId)){
-                console.log("presentif statement reached:", c);
-                console.log("c.members: ", c.members); 
-                console.log("itemData.sellerId:", itemData.sellerId);
-                present = true; 
-            }
-        }); 
-        //if sellerId is not null AND it is not present in conversations
-        console.log("sellerID", itemData?.sellerId); 
-        console.log(present);
-        if((itemData?.sellerId !== undefined && itemData?.sellerId !== null) && present === false)
-        {
-            //then we can add a new conversation; 
-            console.log(present);
-            addConversation(); 
-        }
-        //getConversations();
-
-    },[itemData, user._id]); 
+        arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
         const getConversations = async () => {
             try {
                 const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
-                //console.log("getConversation data", res.data);
+                console.log("from response", res.data);
                 setConversations(res.data);
                 console.log("conversations after getting them: ", conversations)
             }
@@ -197,12 +146,13 @@ export const Inbox = () => {
                                     </div>
                                     <div className="chatBoxBottom">
                                         <textarea className="chatMessageInput"
-                                            placeholder="write something..."
+                                            placeholder="Hey, I'm interested in buying..."
                                             onChange={(e) => setNewMessage(e.target.value)}
                                             value={newMessage}>
                                         </textarea>
                                         <button className="chatSubmitButton" onClick={handleSubmit}>Send</button>
-                                    </div></> : <span className="noConvoText">Open conversation to chat.</span>}
+                                    </div></> : <span className="noConvoText">Open conversation to chat.</span>
+                        }
                     </div>
                 </div>
 

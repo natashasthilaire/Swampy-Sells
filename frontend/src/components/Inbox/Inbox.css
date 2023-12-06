@@ -16,6 +16,7 @@
 .chatBox{
     flex: 5.5; 
     background-color: whitesmoke;
+    border-radius: 10px;
 }
 .chatBoxWrapper{
     display: flex; 
@@ -38,14 +39,15 @@
     width: 90%; 
     height: 90px;
     padding: 10px; 
+    border-radius: 10px;
 }
 .chatSubmitButton {
     width: 70px; 
     height: 40px; 
     border: none; 
-    border-radius: 5; 
+    border-radius: 5px; 
     cursor:pointer; 
-    background-color: lightblue;
+    background-color: blue;
     color: white;
 }
 .chatOnline{
