@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useAuth } from '../context/AuthProvider';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from "./Header";
 import { Buffer } from 'buffer';
@@ -25,7 +24,7 @@ export const ViewItem = () => {
                     description: responseData.description,
                     image: `data:image/png;base64, ${base64}`,
                     condition: responseData.condition,
-                    sellerId: responseData.user,
+                    sellerId: responseData.user
                     // comments: responseData.comments
                     
                 });
