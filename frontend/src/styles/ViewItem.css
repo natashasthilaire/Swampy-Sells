@@ -1,78 +1,67 @@
 
 .view-item {
-    display: flex;
-    margin-top: 10px;
-    /* align-items: center; */
-    margin-left: 150px;
-    
-  }
+  display: flex;
+  margin-top: 10px;
+  margin-left: 150px;
   
-  /* .item-image {
-    
-    /* text-align: left; */
-  /*} */
-  
-  .item-image-container  img {
-    /* max-width: 60%; */
-    /* height: auto; */
-    text-align: left;
-    width: 450px;
-    height: 600px;
-  }
-  
-  .item-details {
-    /* text-align: right; */
-    
-    padding: 0px;
-  }
-  
-  .details {
-    text-align: left;
-    margin-left: 50px;
-  }
-  
-  .item-title {
-    font-size: 38px;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .item-price {
-    font-size: 38px;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
+}
 
-  .item-description-container {
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    margin-top: -10px;
-  }
-  
-  .item-description {
-    font-size: 38px;
-    font-weight: bold;
-    /* color: #555; */
-  }
-  .item-description-details {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
-    margin-left: 5px
-  }
+.item-image-container  img {
+  text-align: left;
+  width: 450px;
+  height: 600px;
+}
 
-  .comment-area {
-    
-  }
+.item-details {
+  
+  padding: 0px;
+}
+
+.details {
+  text-align: left;
+  margin-left: 50px;
+}
+
+.item-title {
+  font-size: 38px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.item-price {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.item-condition {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.item-description-container {
+  display: flex;
+  align-items: center;
+}
+
+.item-description {
+  font-size: 30px;
+}
+
+.item-description-details {
+ font-size: 30px;
+ margin-left: 10px;
+}
+
+.comment-area {
+  
+}
 
 
-  /* button {
-    border: none;
-    background-color: cornflowerblue;
-    padding: 10px; 
-    border-radius: 10px; 
-    cursor: pointer;
-  }
-   */
-  
+/* button {
+  border: none;
+  background-color: cornflowerblue;
+  padding: 10px; 
+  border-radius: 10px; 
+  cursor: pointer;
+}
+ */
