@@ -24,36 +24,32 @@
 
 .item-title {
   font-size: 38px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-weight: bold;
 }
 
 .item-price {
-  font-size: 38px;
-  margin-bottom: -5px;
-  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 5px;
 }
 
 .item-condition {
-  font-size: 38px;
+  font-size: 30px;
   margin-bottom: 5px;
-  font-weight: bold;
 }
 
 .item-description-container {
   display: flex;
   align-items: center;
-  margin-top: -10px;
 }
 
 .item-description {
-  font-size: 38px;
-  font-weight: bold;
-  /* color: #555; */
+  font-size: 30px;
 }
+
 .item-description-details {
- 
-  margin-left: 5px
+ font-size: 30px;
+ margin-left: 10px;
 }
 
 .comment-area {
