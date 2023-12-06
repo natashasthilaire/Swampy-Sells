@@ -5,32 +5,33 @@ import ItemDetails from './ItemDetails'
 import axios from 'axios'
 
 export const Home = () => {
-  const [items, setItems] = useState([]);
-
-  const {isLoading, data } = useQuery('item', () => {
-    return axios.get('http://localhost:5003/getItems')
+  const query = useQuery({
+    queryKey: ['getItems'],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        'http://localhost:5003/getItems'
+      )
+      return data
+    },
   })
 
-  /*useEffect(() => {
-    axios.get('http://localhost:5003/getItems')
-    .then(items => setItems(items.data))
-    .catch(err => console.log(err))
-  }, [])
-  */
-
-  if (isLoading) {
-    return <h2>Loading...</h2>
+  if (query.isLoading) {
+   
+    return (
+    <>
+    <Header/>
+    <h1>Loading...</h1>
+    </>
+    )
   }
 
   return (
     <>
     <Header /> 
     <div className='items-list'>
-     {
-      data?.data.map((item) => {
-        return <div key={item._id}>{item.title}</div>
-      })
-     }
+    {query.isFetched && query.data.map((item) => (
+       <ItemDetails key={item._id} item={item}/>
+    ))}
     </div>
     </>
   );
