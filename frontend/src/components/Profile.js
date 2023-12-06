@@ -1,9 +1,10 @@
 import Header from "./Header";
 import React from "react";
+import { useQuery} from 'react-query'
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { bookmarks, posts } from "../DummyData"
+// import { bookmarks } from "../DummyData"
 import "../styles/Profile.css";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -12,15 +13,17 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { useAuth } from '../context/AuthProvider';
+import { Buffer } from 'buffer';
 import { useNavigate} from "react-router-dom";
+import Stack from '@mui/material/Stack';
+import { deepOrange } from '@mui/material/colors';
 
 
-// TODO(bllndalichako): Marking an item sold and deleting it.
-// TODO(bllndalichako): Mark item sold
-// TODO(bllndalichako): Delete item
-// TODO(bllndalichako): Item pop up when user clicks on item
-// TODO(bllndalichako): User upload profile picture
-// TODO(bllndalichako): Bookmarking.
+// TODO(bllndalichako): Marking an item sold and deleting from homepage. (4)
+// TODO(bllndalichako): Delete item. (3)
+// TODO(bllndalichako): Item pop up when user clicks on item. (2)
+// TODO(bllndalichako): User upload profile picture. (5)
+// TODO(bllndalichako): Bookmarking. (1)
 export const Profile = (props) => {
   const { user } = useAuth(); // get the current user
   const [listings, setListings] = useState(null)
@@ -31,6 +34,15 @@ export const Profile = (props) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
+  const query = useQuery({
+    queryKey: ['getItems'],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        'http://localhost:5003/getItems'
+      )
+      return data
+    },
+  })
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -96,47 +108,24 @@ export const Profile = (props) => {
   }
 
   return <div>
-    {/* TODO(bndalichako): Remove dummy data */}
     <Header />
-
-    {/* show current users posts/listings
-    <h2> {user.firstName}'s Listings</h2>
-        <div> 
-          { 
-          listings ? (
-          <div>
-            {listings.map((listing, index) => (
-              <div key={index}>
-                <h1>{listing.title}</h1>
-                <img src={`data:image/jpeg;base64,${Buffer.from(listing.image).toString('base64')}`} alt={'No Image Available'} />
-              </div>
-            ))}
-          </div>
-          ) : (
-          <p>No Listings Found</p>
-          )}
-        </div> */}
     <div className="profile">
       <div className="view">
         <div className="info">
           <div className="top-info">
             <div className="profile-info">
-              <img className="profile-img"
-                src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2"
-                alt=""
-              />
+              <Avatar className="profile-img" sx={{bgcolor: deepOrange[300], fontSize: "4.5rem"}}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
               <div className="identifiers">
                 <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
                   <p>{listings? listings.length : 0} items listed</p>
                   {/*TODO(bndalichako): Backend logic for determining vals below*/}
-                  <p>{user.salesCount} 5 items sold</p>
-                  <p>{user.purchasesCount} 9 items bookmarked</p>
+                  <p>{user.salesCount} 0 items sold</p>
+                  <p>{user.purchasesCount} 2 items bookmarked</p>
                 </div>
               </div>
             </div>
             <div className="profile-links">
-              {/*TODO(bndalichako): Add logout functionality */}
               <button className="logout-button" onClick={handleLogout}>Log Out</button>
             </div>
           </div>
@@ -154,7 +143,7 @@ export const Profile = (props) => {
                   <div className="postItem" key={post.id}>
                     <div className="post">
                       <img className="post-img"
-                        src={post.image}
+                        src={post.image} alt={'Not Available'}
                       />
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
@@ -169,7 +158,7 @@ export const Profile = (props) => {
             <CustomTabPanel value={value} index={1} className="bookmarks">
               <div className="bookmarks-list">
                 {/*{user.bookmarks?.map((post) => (*/}
-                {bookmarks?.map((post) => (
+                {query.isFetched && query.data?.slice(1,3).map((post) => (
                   <div className="bookmark" key={post.id}>
                     <div className="post">
                       <img className="post-img"
@@ -178,7 +167,7 @@ export const Profile = (props) => {
                       />
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
-                        <p className="post-price">{post.price}</p>
+                        <p className="post-price">${post.price}</p>
                       </div>
 
                     </div>
