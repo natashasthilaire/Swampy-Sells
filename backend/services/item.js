@@ -1,18 +1,20 @@
 const Item = require('../models/Item');
 const Comment = require('../models/Comment');
 const multer = require('multer');
+const cloudinaryUpload = require('../services/utils/cloud');
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage, limits: { filesize: 16 * 1024 * 1024}, });
+const upload = multer({ storage: storage, limits: { filesize: 10 * 1024 * 1024}, });
 
 const postItem = async(req, res) => {
     console.log('Post Item Called')
     console.log(req.body);
     const imageBuffer = req.file.buffer;
+    const cloudUpload = await cloudinaryUpload(imageBuffer);
     try {
         const newItem = new Item(
             {
-                image: imageBuffer,
+                image: cloudUpload.url,
                 title: req.body.title, 
                 price: req.body.price, 
                 category: req.body.category, 

@@ -22,7 +22,7 @@ export const Post = (props) => {
         const image = event.target.files[0]
         if (image == null)
             setImage('')
-        else if (image.size <= (16 * 1024 * 1024))
+        else if (image.size <= (10 * 1024 * 1024))
             setImage(image)
         else
             toast.error('File cannot exceed 16 megabytes')
