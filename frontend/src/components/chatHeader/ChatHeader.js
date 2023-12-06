@@ -7,13 +7,12 @@ export const ChatHeader = ({conversation, currentUser}) => {
     const [user, setUser] = useState(null); 
 
     useEffect(() => {
-        console.log(conversation); 
         const friendId = conversation.members.find((m) => m !== currentUser._id); 
         //get user info for friends to display name
         const getUser = async() =>{
             try{
                 //update: 
-                console.log("Conversation.js request: http://localhost:5003/api/user/" + friendId)
+                console.log("ChatHeader: Conversation.js request: http://localhost:5003/api/user/" + friendId)
                 const res = await axios("http://localhost:5003/api/user/" + friendId); 
                 setUser(res.data); 
             }
