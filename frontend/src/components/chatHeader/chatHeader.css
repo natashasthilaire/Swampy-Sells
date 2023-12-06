@@ -1,0 +1,12 @@
+
+.chatHeaderImg{
+    width: 40px;
+    height: 40px; 
+    border-radius: 50px; 
+    object-fit: cover;
+    margin-right: 20px;
+}
+.chatHeader{
+    border-bottom: ridge; 
+    text-align: left;
+}
