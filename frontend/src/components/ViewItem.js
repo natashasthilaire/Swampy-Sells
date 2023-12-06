@@ -10,7 +10,6 @@ import '../styles/ViewItem.css';
 export const ViewItem = () => {
     const [details, setDetails] = useState({});
     const { id } = useParams();
-    const user = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,7 +26,6 @@ export const ViewItem = () => {
                     image: `data:image/png;base64, ${base64}`,
                     condition: responseData.condition,
                     sellerId: responseData.user,
-                    sellerName: responseData.user.location
                     // comments: responseData.comments
                     
                 });
@@ -52,7 +50,6 @@ return (
         <div className= "item-image-container">
         <img src={details.image} alt="ItemImage" />
         </div>
-        <h2>{details.sellerName}</h2>
         <div className="item-details">
             <div className="details">
                 <h2 className='item-title'>{details.title}</h2>
