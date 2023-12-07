@@ -233,12 +233,13 @@ mongoose.connect(process.env.MONGODB_URL, {
         const savingRes = await item.save();
 
         if (!savingRes) {
-          res.status(400).json(savingRes).send("Could not change bookmark status");
+          return res.status(400).json({ message: "Could not change bookmark status" });
         }
-        
-        res.status(200).json(item).send("Successfully changed bookmark status");
+
+        return res.status(200).json(savingRes);
       } catch (error) {
         res.status(404).json({ message: error.message });
+        return;
       }
     });
 
