@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthProvider';
 
-function Popup({ postItem }) {
+function Popup({ postItem, setPosts, userId }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  const handleDelete = async () => {
+    try {
+      // delete item from database
+      const deletePostRes = await axios.delete(`http://localhost:5003/api/deleteItem/${postItem._id}`);
+
+      if (deletePostRes.status === 200) {
+        const postsRes = await axios.get(`http://localhost:5003/api/item/:id/userItems/${userId}`);
+        setPosts(postsRes.data);
+        handleClose();
+        toast.success('Item deleted');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Error deleting item');
+    }
+  }
 
   return (
     <>
@@ -24,15 +45,15 @@ function Popup({ postItem }) {
           <Modal.Title>{postItem.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className=''>
-          <img className='img-fluid' src={postItem.image} alt='Not Available' />
-          <p>Description: {postItem.description}</p>
-          <p>Condition: {postItem.condition}</p>
-          <p>Price: ${postItem.price}</p>
-        </div>
+          <div className=''>
+            <img className='img-fluid' src={postItem.image} alt='Not Available' />
+            <p>Description: {postItem.description}</p>
+            <p>Condition: {postItem.condition}</p>
+            <p>Price: ${postItem.price}</p>
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleDelete}>
             Delete
           </Button>
           <Button variant="primary">Sold</Button>

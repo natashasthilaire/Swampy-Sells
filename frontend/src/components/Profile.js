@@ -139,7 +139,7 @@ export const Profile = (props) => {
                         <p className="post-title">{post.title}</p>
                         <p className="post-price">${post.price}</p>
                       </div>
-                      <Popup postItem={post} />
+                      <Popup postItem={post} setPosts={setListings} userId={user._id} />
                     </div>
                   </div>
                 ))}
