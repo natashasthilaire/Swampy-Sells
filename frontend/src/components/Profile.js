@@ -13,9 +13,10 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { useAuth } from '../context/AuthProvider';
 import { Buffer } from 'buffer';
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Stack from '@mui/material/Stack';
 import { deepOrange } from '@mui/material/colors';
+import Popup from "./Popup";
 
 
 // TODO(bllndalichako): Marking an item sold and deleting from homepage. (4)
@@ -40,7 +41,7 @@ export const Profile = (props) => {
 
   // get user posts
   useEffect(() => {
-    const getListings = async () =>  {
+    const getListings = async () => {
       try {
         const responseWithPosts = await axios.get(`http://localhost:5003/api/item/:id/userItems/${user._id}`);
         setListings(responseWithPosts.data)
@@ -104,11 +105,11 @@ export const Profile = (props) => {
         <div className="info">
           <div className="top-info">
             <div className="profile-info">
-              <Avatar className="profile-img" sx={{bgcolor: deepOrange[300], fontSize: "4.5rem"}}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
+              <Avatar className="profile-img" sx={{ bgcolor: deepOrange[300], fontSize: "4.5rem" }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
               <div className="identifiers">
                 <h1>{user.firstName} {user.lastName}</h1>
                 <div className="activity">
-                  <p>{listings? listings.length : 0} items listed</p>
+                  <p>{listings ? listings.length : 0} items listed</p>
                   {/*TODO(bndalichako): Backend logic for determining vals below*/}
                   <p>{user.salesCount} 5 items sold</p>
                   <p>{user.purchasesCount} 9 items bookmarked</p>
@@ -128,7 +129,6 @@ export const Profile = (props) => {
             </Box>
             <CustomTabPanel value={value} index={0} className="posts">
               <div className="posts-list">
-                {/*{user.bookmarks?.map((post) => (*/}
                 {listings?.map((post) => (
                   <div className="postItem" key={post.id}>
                     <div className="post">
@@ -139,7 +139,7 @@ export const Profile = (props) => {
                         <p className="post-title">{post.title}</p>
                         <p className="post-price">${post.price}</p>
                       </div>
-
+                      <Popup postItem={post} />
                     </div>
                   </div>
                 ))}
