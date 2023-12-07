@@ -142,7 +142,6 @@ export const Profile = (props) => {
             </Box>
             <CustomTabPanel value={value} index={0} className="posts">
               <div className="posts-list">
-                
                 {listings?.map((post) => (        
                   <div className="postItem" key={post.id}>
                     <div className="post">
