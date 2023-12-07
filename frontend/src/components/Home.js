@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { useQuery} from 'react-query'
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query'
 import Header from './Header';
 import ItemDetails from './ItemDetails'
 import axios from 'axios'
@@ -16,24 +16,25 @@ export const Home = () => {
   })
 
   if (query.isLoading) {
-   
+
     return (
-    <>
-    <Header/>
-    <h1>Loading...</h1>
-    </>
+      <>
+        <Header />
+        <h1>Loading...</h1>
+      </>
     )
   }
 
   return (
     <>
-    <Header /> 
-    <div className='items-list'>
-    {query.isFetched && query.data.map((item) => (
-       <ItemDetails key={item._id} item={item}/>
-    ))}
-    </div>
+      <Header />
+      <div className='items-list'>
+        {query.isFetched && query.data
+        .filter(item => !item.sold) // Filter out sold items
+        .map((item) => (
+          <ItemDetails key={item._id} item={item} />
+        ))}
+      </div>
     </>
   );
 };
-
