@@ -162,8 +162,7 @@ export const Profile = (props) => {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1} className="bookmarks">
               <div className="bookmarks-list">
-                {bookmarks?.filter((item) => item.bookmarkedBy?.includes(user?._id))
-                .map((post) => (
+                {bookmarks?.map((post) => (
                   <div className="bookmark" key={post.id}>
                     <div className="post">
                       <img className="post-img"
