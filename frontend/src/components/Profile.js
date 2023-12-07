@@ -111,7 +111,7 @@ export const Profile = (props) => {
                 <div className="activity">
                   <p>{listings ? listings.length : 0} items listed</p>
                   {/*TODO(bndalichako): Backend logic for determining vals below*/}
-                  <p>{user.salesCount} 5 items sold</p>
+                  <p>{listings ? listings.filter(item => item.sold).length : 0} items sold</p>
                   <p>{user.purchasesCount} 9 items bookmarked</p>
                 </div>
               </div>
@@ -135,6 +135,8 @@ export const Profile = (props) => {
                       <img className="post-img"
                         src={post.image} alt={'Not Available'}
                       />
+                        {post.sold ? <p className="fs-3 text-danger">Sold</p> : <p className="fs-3 text-success">Available</p>}
+                        
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
                         <p className="post-price">${post.price}</p>
