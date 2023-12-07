@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from "./Header";
+import { Buffer } from 'buffer';
+//import { useItemDetails } from '../context/ItemProvider';
+import axios from "axios"
+import { useAuth } from "../context/AuthProvider";
 
 import '../styles/ViewItem.css';
 
 export const ViewItem = () => {
     const [details, setDetails] = useState({});
     const { id } = useParams();
+    //const { itemDetails } = useItemDetails();
     const navigate = useNavigate();
+    const { user } = useAuth();
 
     useEffect(() => {
         const retrieveItem = async () => {
@@ -24,24 +30,79 @@ export const ViewItem = () => {
                     condition: responseData.condition,
                     sellerId: responseData.user
                     // comments: responseData.comments
-                    
                 });
+                console.log(responseData.image)
+                console.log(responseData.image.data);
 
-        } catch (error) {
-            console.error('Error with fetching in useEffect', error);
+
+
+            } catch (error) {
+                console.error('Error with fetching in useEffect', error);
+            }
+        };
+        retrieveItem();
+    }, [id]);
+
+    const handleMessageButton = async () => {
+       // itemDetails({ sellerId: details.sellerId })
+
+        //get conversations
+        var conversations = []; 
+        try {
+            const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
+            console.log("ViewItem: from response", res.data);
+            conversations = res.data; 
+            console.log("conversations in try statment: ", conversations);
+            //setConversations(res.data);
+            //console.log("conversations after getting them: ", conversations)
+            //return res; 
         }
-    };
-    retrieveItem();
-}, [id]);
+        catch (err) {
+            console.log(err);
+        }
 
-    const handleMessageButton = async() => {
-        navigate('/inbox');
+        let firstConversation = null; 
+        //check if conversation is already present with the seller
+        let present = false; 
+        conversations.map((c) => {
+            if(c.members.includes(details.sellerId)) {
+                present = true;
+                firstConversation = c; 
+            } 
+        }); 
+        //add if not present
+        if(present === false)
+        {
+            //make post request with conversation
+            try {
+                const res2 = await axios.post("http://localhost:5003/api/conversations", {"senderId": user._id,"receiverId": details.sellerId,});
+            }
+            catch(err) {
+                console.log(err); 
+            }
+            //then get conversation so we can set initial state to conversation with the new user that was added 
+            try {
+                const res = await axios.get(`http://localhost:5003/api/conversations/${user._id}`);
+                console.log("ViewItem: from response", res.data);
+                conversations = res.data; 
+            }
+            catch (err) {
+                console.log(err);
+            }
+            conversations.map((c) => {
+                if(c.members.includes(details.sellerId)) {
+                    firstConversation = c; 
+                } 
+            });
+        }
+        console.log("firstConversation", firstConversation); 
+        navigate('/inbox', {state: firstConversation});
     }
 
 
 
-return (
-    <div>
+    return (
+        <div>
     <Header />
     <div className="view-item">
         <div className= "item-image-container">
@@ -68,9 +129,7 @@ return (
         </div>
         </div>
     </div>
-
-    
-)
+    )
 };
 
 //export default ViewItem;

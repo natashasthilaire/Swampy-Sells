@@ -20,6 +20,10 @@ const User = require('./models/User');
 const initializePassport = require('./auth/passportStrategy');
 const Item = require('./models/Item');
 
+const messageRoute = require('./routes/messages');
+const conversationRoute = require('./routes/conversations');
+const userRoute = require('./routes/users');
+
 //TODO Add ROUTES!
 
 const app = express();
@@ -80,6 +84,10 @@ mongoose.connect(process.env.MONGODB_URL, {
     app.use('/api', registerRoutes);
     app.use("/api/v1/product", itemRoutes);
     //Can add more routes here
+    app.use('/api/conversations', conversationRoute);
+    app.use('/api/messages', messageRoute);
+    app.use('/api/user', userRoute);
+
     app.get('/api/auth', (req, res) => {
       if (req.isAuthenticated()) {
         console.log(`/api/auth called:`);
