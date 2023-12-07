@@ -99,10 +99,8 @@ export const ViewItem = () => {
         navigate('/inbox', {state: firstConversation});
     }
 
-
-
-    return (
-        <div>
+return (
+    <div>
     <Header />
     <div className="view-item">
         <div className= "item-image-container">
@@ -119,17 +117,18 @@ export const ViewItem = () => {
                 <div className='item-description-details'>{details.description}</div>  
                 </div>
                 </div>
-                <Button variant="outline-success" 
+                {details.sellerId !== user._id ? <Button variant="outline-success" 
                     style={{backgroundColor:"#0000FF", color:"white", borderColor:"#0000FF", width:"150px", height:"58px", fontSize:"30px", justifyContent:"center"}}
                     onClick={handleMessageButton}>
                     Message
                 </Button>
-
+                : null }
             </div>
         </div>
         </div>
     </div>
     )
+
 };
 
 //export default ViewItem;
