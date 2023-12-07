@@ -33,6 +33,11 @@ const itemSchema = new mongoose.Schema(
         location: {
             type: String,
             required: true
+        },
+        sold: {
+            type: Boolean,
+            required: true,
+            default: false
         }
     },
     { collection: 'items'}

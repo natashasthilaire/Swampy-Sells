@@ -29,6 +29,23 @@ function Popup({ postItem, setPosts, userId }) {
     }
   }
 
+  const handleSold = async () => {
+    try {
+      // mark item as sold in database
+      const markSoldRes = await axios.put(`http://localhost:5003/api/markSold/${postItem._id}`);
+
+      if (markSoldRes.status === 200) {
+        const postsRes = await axios.get(`http://localhost:5003/api/item/:id/userItems/${userId}`);
+        setPosts(postsRes.data);
+        handleClose();
+        toast.success('Item marked sold');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Error marking item sold');
+    }
+  }
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -56,7 +73,7 @@ function Popup({ postItem, setPosts, userId }) {
           <Button variant="secondary" onClick={handleDelete}>
             Delete
           </Button>
-          <Button variant="primary">Sold</Button>
+          <Button variant="primary" onClick={handleSold}>Sold</Button>
         </Modal.Footer>
       </Modal>
     </>
