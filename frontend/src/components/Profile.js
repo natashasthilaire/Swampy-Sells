@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 // import { bookmarks } from "../DummyData"
+import { Link } from "react-router-dom";
 import "../styles/Profile.css";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -141,7 +142,7 @@ export const Profile = (props) => {
             </Box>
             <CustomTabPanel value={value} index={0} className="posts">
               <div className="posts-list">
-                {listings?.map((post) => (
+                {listings?.map((post) => (        
                   <div className="postItem" key={post.id}>
                     <div className="post">
                       <img className="post-img"
@@ -163,6 +164,7 @@ export const Profile = (props) => {
               <div className="bookmarks-list">
                 {bookmarks?.map((post) => (
                   <div className="bookmark" key={post.id}>
+                    <Link to={`/item/${post._id}`}>
                     <div className="post">
                       <img className="post-img"
                         src={post.image}
@@ -171,9 +173,10 @@ export const Profile = (props) => {
                       <div className="post-info">
                         <p className="post-title">{post.title}</p>
                         <p className="post-price">${post.price}</p>
+                        <p className="post-price">{post.location}</p>
                       </div>
-
                     </div>
+                    </Link>
                   </div>
                 ))}
               </div>
