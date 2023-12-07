@@ -38,7 +38,11 @@ const itemSchema = new mongoose.Schema(
             type: Boolean,
             required: true,
             default: false
-        }
+        },
+        bookmarkedBy: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }],
     },
     { collection: 'items'}
 );

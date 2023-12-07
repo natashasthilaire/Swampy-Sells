@@ -25,22 +25,13 @@ import Popup from "./Popup";
 export const Profile = (props) => {
   const { user } = useAuth(); // get the current user
   const [listings, setListings] = useState(null)
+  const [bookmarks, setBookmarks] = useState(null)
   // const [user, setUser] = useState({});
   const { id } = useParams();
   // const [toggle, setToggle] = useState("posts");
   const [value, setValue] = React.useState(0);
   const { logout } = useAuth();
   const navigate = useNavigate();
-
-  const query = useQuery({
-    queryKey: ['getItems'],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        'http://localhost:5003/getItems'
-      )
-      return data
-    },
-  })
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,7 +48,21 @@ export const Profile = (props) => {
         console.error(error)
       }
     }
+
+    const getBookmarks = async () =>  {
+      try {
+        const itemsRes = await axios.get('http://localhost:5003/getItems');
+        const userBookmarks = itemsRes.data.filter((item) => item.bookmarkedBy?.includes(user?._id));
+
+        setBookmarks(userBookmarks)
+        console.log(userBookmarks)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     getListings()
+    getBookmarks()
   }, []);
 
   function CustomTabPanel(props) {
@@ -119,7 +124,7 @@ export const Profile = (props) => {
                   <p>{listings ? listings.length : 0} items listed</p>
                   {/*TODO(bndalichako): Backend logic for determining vals below*/}
                   <p>{listings ? listings.filter(item => item.sold).length : 0} items sold</p>
-                  <p>{user.purchasesCount} 9 items bookmarked</p>
+                  <p>{bookmarks? bookmarks.length : 0} items bookmarked</p>
                 </div>
               </div>
             </div>
@@ -156,8 +161,7 @@ export const Profile = (props) => {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1} className="bookmarks">
               <div className="bookmarks-list">
-                {/*{user.bookmarks?.map((post) => (*/}
-                {query.isFetched && query.data?.slice(1,3).map((post) => (
+                {bookmarks?.map((post) => (
                   <div className="bookmark" key={post.id}>
                     <div className="post">
                       <img className="post-img"
