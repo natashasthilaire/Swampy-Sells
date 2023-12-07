@@ -20,6 +20,7 @@ import { Other } from './components/Other';
 import Search from './components/Search';
 import { ViewItem } from './components/ViewItem';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const queryClient = new QueryClient();
 

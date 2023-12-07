@@ -23,7 +23,7 @@ const itemSchema = new mongoose.Schema(
         },
         description: {
             type: String,
-            requried: true
+            required: true
         },  
         user: {
             type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +33,11 @@ const itemSchema = new mongoose.Schema(
         location: {
             type: String,
             required: true
+        },
+        sold: {
+            type: Boolean,
+            required: true,
+            default: false
         }
     },
     { collection: 'items'}
